@@ -30,6 +30,29 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           java -cp build/test-classes NumericOrderTest
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Test Gestão DOM collector
+        run: node tests/gestao-export.test.mjs
+      - name: Test connection reconciliation and concurrent imports
+        shell: pwsh
+        run: |
+          $version=(Get-Content versions.json -Raw | ConvertFrom-Json).connectionOrder
+          $bundle="artifacts/plugins/com.salutem.jasper.connectionorder_$version.jar"
+          javac -encoding UTF-8 -cp $bundle -d build/test-classes tests/GestaoReconciliationTest.java
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          java -cp "$bundle;build/test-classes" GestaoReconciliationTest
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Test extension registry cache lifecycle
+        shell: pwsh
+        run: ./tests/Test-RegistryCache.ps1
+      - name: Test subreport source resolution
+        shell: pwsh
+        run: |
+          javac -encoding UTF-8 -d build/test-classes modules/connection-order/src/com/salutem/order/SubreportPaths.java modules/connection-order/src/com/salutem/order/RemoteSubreportMatcher.java tests/SubreportPathsTest.java tests/RemoteSubreportMatcherTest.java
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          java -cp build/test-classes SubreportPathsTest
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          java -cp build/test-classes RemoteSubreportMatcherTest
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Build installer from verified artifacts
         shell: pwsh
         run: ./scripts/Build.ps1 -PackageOnly
