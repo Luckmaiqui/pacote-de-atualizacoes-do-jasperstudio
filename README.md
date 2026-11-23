@@ -2,6 +2,8 @@
 
 Complementos independentes para **Jaspersoft Studio Community 6.20.6 no Windows, Java 17+**.
 
+> Versão 2.8.0: cor personalizada por bloco da interface, no pacote Temas. Consulte as [notas da versão](docs/releases/v2.8.0.md).
+>
 > Versão 2.7.0: contas, importação do Gestão e melhorias no gerenciamento de conexões. Consulte as [notas da versão](docs/releases/v2.7.0.md), o [histórico de revisão](docs/REVISAO-2.7.0.md) e a [Importação do Gestão](docs/IMPORTACAO-GESTAO.md). A validação de alguns fluxos reais continua pendente, conforme as notas.
 
 ## Escolha o que instalar
@@ -10,10 +12,10 @@ Baixe em [Releases](https://github.com/Luckmaiqui/pacote-de-atualizacoes-do-jasp
 
 | ZIP | Pasta | Conteúdo |
 |---|---|---|
-| JS-Temas-v2.7.0.zip | Temas | Noite, Grafite, Floresta, Ameixa, GitHub, Ônix e Meia-Noite, mais cor personalizada por bloco |
-| JS-Traducao-ptBR-v2.7.0.zip | Traducao-ptBR | Tradução para Português (Brasil) e bandeira |
-| JS-Ordenacao-v2.7.0.zip | Ordenacao-de-conexoes | Pesquisa e ordenação de conexões, contas e importação do Gestão |
-| JS-Pacotes-Separados-v2.7.0.zip | Pacote de Atualizações do JasperStudio | As três pastas acima, com instaladores separados |
+| JS-Temas-v2.8.0.zip | Temas | Noite, Grafite, Floresta, Ameixa, GitHub, Ônix e Meia-Noite, mais cor personalizada por bloco |
+| JS-Traducao-ptBR-v2.8.0.zip | Traducao-ptBR | Tradução para Português (Brasil) e bandeira |
+| JS-Ordenacao-v2.8.0.zip | Ordenacao-de-conexoes | Pesquisa e ordenação de conexões, contas e importação do Gestão |
+| JS-Pacotes-Separados-v2.8.0.zip | Pacote de Atualizações do JasperStudio | As três pastas acima, com instaladores separados |
 
 Cada pasta tem **Instalar.bat** e **Abrir JS.bat** próprios. Você pode instalar apenas uma, duas ou todas. O pacote de temas não instala tradução nem muda o idioma. O pacote de tradução não instala nem seleciona tema. A ordenação também é independente.
 
@@ -77,8 +79,8 @@ Correção 2.6.1: restaura o desenho escuro dos menus e o destaque legível nas 
 
 ## Cor personalizada por bloco
 
-Disponível no pacote Temas a partir da 2.7.0 e funciona com qualquer tema, inclusive o escuro padrão do Eclipse. Use **Janela > Escolher cor de um bloco...**: o bloco sob o mouse (área do editor, visões e pilhas de abas) recebe um contorno vermelho; clique para abrir o seletor de cores. Esc ou o botão direito cancelam. Clicar em qualquer ponto do editor escolhe a área do editor inteira.
+Disponível no pacote Temas a partir da 2.8.0 e funciona com qualquer tema, inclusive o escuro padrão do Eclipse. Use **Janela > Escolher cor de um bloco...**: o bloco sob o mouse (área do editor, visões e pilhas de abas) recebe um contorno vermelho; clique para abrir o seletor de cores. Esc ou o botão direito cancelam. Clicar na área do editor escolhe a área do editor inteira; com um relatório aberto, clicar ao lado da página escolhe o **Fundo do designer** (só a região em volta da página).
 
 O seletor tem quadro de saturação e brilho, barra de matiz, código hexadecimal (`#RRGGBB`, `RRGGBB` ou `#RGB`), campos R, G e B, prévia Atual/Nova, cores básicas, as 10 últimas cores usadas e conta-gotas para pegar a cor de qualquer ponto da tela, com lupa. Enter aplica e Esc cancela.
 
-Os blocos coloridos ficam em **Janela > Preferências > Gerais > Aparência > Cores personalizadas**, onde é possível alterar, remover ou restaurar tudo; ao remover, o bloco volta às cores do tema. Só fundos de contêineres e rótulos simples são pintados: o conteúdo do relatório, árvores, tabelas, campos e textos mantêm as cores do tema.
+Os blocos coloridos ficam em **Janela > Preferências > Gerais > Aparência > Cores personalizadas**, onde é possível alterar, remover ou restaurar tudo; ao remover, o bloco volta às cores do tema. A cor cobre o fundo do bloco inteiro, inclusive árvores, tabelas, paleta e seções de Propriedades, com o texto ajustado para leitura; campos editáveis, botões e o conteúdo do relatório (página, elementos, prévia e saída) mantêm as cores do tema.

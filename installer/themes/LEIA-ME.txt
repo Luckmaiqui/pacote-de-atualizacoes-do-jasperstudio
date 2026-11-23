@@ -13,4 +13,4 @@ O Abrir JS.bat otimizado preserva o cache do Eclipse nas aberturas seguintes e u
 
 Correção 2.6.1: seleções escuras e legíveis em Combo/CCombo/List e menus; estratégias de publicação Escrever e Escrever Apenas Expressão. Preserva as otimizações 2.6.0.
 
-Novo na 2.7.0: Janela > Escolher cor de um bloco... define a cor de fundo de blocos da interface (ex.: área do editor) com seletor próprio, código hexadecimal e conta-gotas. Gerenciar em Preferências > Gerais > Aparência > Cores personalizadas. Funciona com qualquer tema.
+Novo na 2.8.0: Janela > Escolher cor de um bloco... define a cor de fundo de blocos da interface (ex.: área do editor) com seletor próprio, código hexadecimal e conta-gotas. Gerenciar em Preferências > Gerais > Aparência > Cores personalizadas. Funciona com qualquer tema.
