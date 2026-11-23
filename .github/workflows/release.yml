@@ -38,7 +38,7 @@ jobs:
           if ((Get-FileHash $archive).Hash -ne '12F502792117D5D981925BB8D98E9832E8141F678D1DBC2520BF20110A292A85') { throw 'SHA256 inválido' }
           $stage = Join-Path $env:RUNNER_TEMP 'source-update'
           Expand-Archive -LiteralPath $archive -DestinationPath $stage
-          git rm --ignore-unmatch artifacts/plugins/com.salutem.jasper.connectionorder_1.7.0.jar artifacts/plugins/com.salutem.jasper.theme.deepblue_2.3.0.jar
+          git rm --ignore-unmatch artifacts/plugins/com.salutem.jasper.connectionorder_1.6.0.jar artifacts/plugins/com.salutem.jasper.theme.deepblue_2.2.2.jar
           Get-ChildItem -LiteralPath $stage | Where-Object Name -notin @('.git','.github') | ForEach-Object { Copy-Item -LiteralPath $_.FullName -Destination . -Recurse -Force }
           node scripts/Verify.mjs
           if ($LASTEXITCODE -ne 0) { throw 'Verificação falhou' }
