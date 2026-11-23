@@ -1,8 +1,9 @@
 ﻿#Requires -Version 5.1
 [CmdletBinding()]
-param([string]$StudioPath,[switch]$Elevated,[switch]$ValidateOnly,[switch]$Launch,[switch]$Quiet)
+param([string]$StudioPath,[switch]$Elevated,[switch]$ValidateOnly,[switch]$Launch,[switch]$Quiet,[string]$RegistryUserProfile=[Environment]::GetFolderPath('UserProfile'))
 $ErrorActionPreference='Stop'
 Add-Type -AssemblyName System.IO.Compression.FileSystem
+. (Join-Path $PSScriptRoot 'RegistryCache.ps1')
 $componentConfig=Get-Content -LiteralPath (Join-Path $PSScriptRoot 'componente.json') -Raw|ConvertFrom-Json
 
 function Read-Manifest([string]$BundlePath){
@@ -114,6 +115,7 @@ try {
     $principal=New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
     if(-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)){
         $argsList=@('-NoProfile','-ExecutionPolicy','Bypass','-STA','-File',('"'+$PSCommandPath+'"'),'-StudioPath',('"'+$plan.Root+'"'),'-Elevated')
+        $argsList+=@('-RegistryUserProfile',('"'+$RegistryUserProfile+'"'))
         if($Quiet){$argsList+='-Quiet'}
         $child=Start-Process -FilePath 'powershell.exe' -Verb RunAs -WindowStyle Hidden -ArgumentList $argsList -Wait -PassThru
         exit $child.ExitCode
@@ -138,12 +140,16 @@ try {
             }}
         }}
         foreach($file in $plan.Files){$dest=Join-Path $target $file.Name;if(-not(Test-Path -LiteralPath $dest)){Copy-Item -LiteralPath $file.Source -Destination $dest;$added.Add($dest)};if((Get-FileHash -LiteralPath $dest -Algorithm SHA256).Hash -ne $file.Hash){throw "Falha de cópia: $($file.Name)"}}
+        # Equinox may rebuild bundle IDs while retaining a registry from the
+        # previous bundle inventory. Rebuild only that derived cache, even when
+        # reinstalling the same JARs to repair an already affected installation.
+        $registryBackup=@(Move-StudioRegistryCache @(Get-StudioRegistryCachePaths $plan.Root $RegistryUserProfile) $backup)
     }catch{
         foreach($created in $added){if([IO.Path]::GetDirectoryName($created) -eq $target){Remove-Item -LiteralPath $created -Force}}
         foreach($old in $previous){Move-Item -LiteralPath $old.Backup -Destination $old.Original -Force}
         throw
     }
-    $report=@('Instalação concluída.',('Pasta: '+$plan.Root),('Versão: '+$plan.Version),('Java: '+$plan.Java),('Complementos conferidos: '+$plan.Files.Count),('Módulos opcionais ausentes: '+$plan.Skipped.Count),('Arquivos adicionados: '+$added.Count),('Data: '+(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')))
+    $report=@('Instalação concluída.',('Pasta: '+$plan.Root),('Versão: '+$plan.Version),('Java: '+$plan.Java),('Complementos conferidos: '+$plan.Files.Count),('Módulos opcionais ausentes: '+$plan.Skipped.Count),('Arquivos adicionados: '+$added.Count),('Caches de extensões preparados para reconstrução: '+$registryBackup.Count),('Data: '+(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')))
     try{$report|Set-Content -LiteralPath (Join-Path $PSScriptRoot 'instalacao.log') -Encoding UTF8}catch{ }
     if($Quiet){$report;exit 0}
     Add-Type -AssemblyName System.Windows.Forms

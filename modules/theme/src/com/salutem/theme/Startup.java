@@ -47,7 +47,7 @@ public final class Startup implements IStartup {
      editors.put("currentLineColor",rgbString(palette.accent));
      d.setData("org.eclipse.swt.internal.win32.Combo.useDarkTheme",Boolean.TRUE);
      d.setData("org.eclipse.swt.internal.win32.Table.headerLineColor",border);
-     d.addFilter(SWT.Show,event->{if(activeTheme() && event.widget instanceof Menu) menu((Menu)event.widget);});
+     d.addFilter(SWT.Show,event->{if(activeTheme() && event.widget instanceof Menu){Menu opening=(Menu)event.widget;menu(opening);d.asyncExec(()->{if(activeTheme() && !opening.isDisposed() && opening.isVisible())menu(opening);});}});
      d.addFilter(SWT.MouseDown,event->{if(activeTheme() && (event.widget instanceof Combo || event.widget instanceof org.eclipse.swt.widgets.List))nativeCombo((Control)event.widget);});
      RefreshQueue queue=new RefreshQueue(d,Startup.this::visitVisible);
      org.eclipse.swt.widgets.Listener changes=e->{if(activeTheme() && e.widget instanceof Control){Control c=(Control)e.widget;queue.request(c instanceof StyledText?c.getParent():c);}};
@@ -117,6 +117,7 @@ public final class Startup implements IStartup {
  }
  private void extras(Control c) {
   String name=c.getClass().getName();
+  if(Boolean.TRUE.equals(c.getData("salutem.accountSurface")))publishColors(c);
   if(inProgressPanel(c))publishColors(c);
   if(isPublishingDatasource(c) || (c instanceof TabFolder && containsDatasourcePanel((Composite)c,0))) publishColors(c);
   if(name.startsWith("org.eclipse.nebula.widgets.gallery.")) gallery(c);
@@ -139,6 +140,12 @@ public final class Startup implements IStartup {
   if(c.getMenu()!=null)menu(c.getMenu());
   if(c instanceof Tree) {
    Tree t=(Tree)c;Color back=surface(t),text=text(t);
+   if(t.getData("salutem.strongSelection")==null){
+    t.setData("salutem.strongSelection",Boolean.TRUE);
+    t.addListener(SWT.EraseItem,event->{if(activeTheme() && (event.detail&SWT.SELECTED)!=0){
+     event.gc.setBackground(selectionColor());event.gc.setForeground(fg);event.gc.fillRectangle(event.x,event.y,event.width,event.height);event.detail&=~(SWT.SELECTED|SWT.HOT);
+    }});
+   }
    t.setLinesVisible(false);t.setHeaderBackground(back);t.setHeaderForeground(text);
    for(TreeItem i:t.getItems())uniformItem(i,Math.max(1,t.getColumnCount()),back,text);
   }
@@ -253,8 +260,14 @@ public final class Startup implements IStartup {
  }
  private void publishColors(Control control) {
   Color surface=surface(control),text=text(control);
-  if(!surface.equals(control.getBackground()))control.setBackground(surface);
-  if(!text.equals(control.getForeground()))control.setForeground(text);
+  // Inherited colours can compare equal before a native control has received
+  // its own brush; explicitly set them so native buttons do not stay white.
+  control.setBackground(surface);control.setForeground(text);
+  if((control instanceof Button || control instanceof TabFolder) && control.getData("salutem.surfaceTheme")==null){
+   control.setData("salutem.surfaceTheme",Boolean.TRUE);
+   org.eclipse.swt.internal.win32.OS.AllowDarkModeForWindow(control.handle,true);
+   org.eclipse.swt.internal.win32.OS.SetWindowTheme(control.handle,(control instanceof Button?"DarkMode_Explorer\0":"\0").toCharArray(),null);
+  }
   if(control instanceof Composite) {
    Composite composite=(Composite)control;
    if(composite.getBackgroundMode()!=SWT.INHERIT_FORCE)composite.setBackgroundMode(SWT.INHERIT_FORCE);
@@ -314,7 +327,9 @@ public final class Startup implements IStartup {
   for(TreeItem child:item.getItems())uniformItem(child,columns,back,text);
  }
  private void menu(Menu m) {
-  if(m.isDisposed() || (visibleOnly && !m.isVisible()))return;
+  // SWT.Show is delivered before isVisible() becomes true. Skipping invisible
+  // menus here misses precisely the opening event and leaves native light popups.
+  if(m.isDisposed())return;
   nativeDark(m.getDisplay());
   org.eclipse.swt.internal.win32.OS.AllowDarkModeForWindow(m.getShell().handle,true);
   try {
@@ -334,11 +349,16 @@ public final class Startup implements IStartup {
    if(i.getMenu()!=null)menu(i.getMenu());
   }
  }
+ private Color selectionColor(){
+  // More saturated than the resting panel colour, with readable foreground.
+  return rgb(Display.getCurrent(),0x245A86);
+ }
  private void nativeDark(Display display){
   // Eclipse can reset these process flags after our startup/theme application.
   // Restore immediately before native popups, rather than during every key press.
   display.setData("org.eclipse.swt.internal.win32.useDarkModeExplorerTheme",Boolean.TRUE);
   display.setData("org.eclipse.swt.internal.win32.Combo.useDarkTheme",Boolean.TRUE);
+  if(org.eclipse.swt.internal.win32.OS.IsDarkModeAvailable())org.eclipse.swt.internal.win32.OS.SetPreferredAppMode(2);
  }
  private void nativeCombo(Control control){
   if(control.isDisposed())return;nativeDark(control.getDisplay());

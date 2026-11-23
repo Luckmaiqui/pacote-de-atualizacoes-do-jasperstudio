@@ -1,11 +1,79 @@
-# Pesquisa e Ordenação — Versão 2.6.0
+﻿# Histórico de revisão 2.7.0
 
-Ctrl+F no Explorador de Repositórios abre com o servidor selecionado (ou o servidor da pasta/arquivo selecionado). Sem seleção de servidor, abre com Todos os Servidores.
+Este documento registra as etapas da candidata local. A publicação da versão 2.7.0 foi autorizada explicitamente por Luckas em 23/11/2026; as referências abaixo à aprovação pendente descrevem o estado das revisões anteriores. Consulte docs/releases/v2.7.0.md para o estado da versão e os pontos em acompanhamento.
 
-Na janela de pesquisa, use Escolher Servidores… para marcar várias conexões. A opção Servidores Selecionados consulta somente essas conexões. Também é possível selecionar um servidor ou Todos os Servidores na lista. Digite 3 caracteres ou mais e clique em Pesquisar. Há no máximo duas consultas simultâneas; falhas e resultados ficam identificados por servidor. Cancelar mantém resultados recebidos.
+## Alterações
 
-A busca consulta nomes e descrições dos recursos, sem baixar todos os relatórios. Os filtros dos exploradores são independentes. MyReports permanece na árvore nativa.
+- Abrir Sub-Relatório: para expressões literais como `"percentual_cirurgias.jasper"`, resolve o fonte `percentual_cirurgias.jrxml` na pasta do relatório principal. Aceita subpastas e fontes JRXML diretos. Se faltar o fonte, permite localizá-lo. Expressões dinâmicas continuam com o tratamento original do Jasper. Para fontes do JasperServer, procura o JRXML correspondente nos recursos da unidade associada, segue referências e usa a ação nativa de abertura, preservando a associação com o servidor. Ausência ou ambiguidade do fonte gera uma mensagem. Não altera a expressão nem converte arquivos compilados em fontes.
+- Menus: o tratamento escuro é aplicado no evento Show mesmo quando o SWT ainda informa que o menu não está visível. Mantém a correção de expansão dos combos da 2.6.2.
+- Publicação: instala o comparador numérico no TreeViewer do assistente, preservando a seleção e os elementos expandidos. A árvore e o modelo originais permanecem no mesmo lugar; não modifica o destino de publicação nem publica automaticamente.
+- Pesquisa global: duplo clique/Enter ou Localizar na Árvore localiza o recurso, abre seus ancestrais, expande a pasta quando o resultado é uma pasta, seleciona e destaca o item e fecha a janela de pesquisa após o sucesso. Erros mantêm a janela aberta. A seleção recebe destaque mais forte no tema.
+- Contas: entrada no menu Janela (acesso aprovado por Luckas; ícones não são requisito de validação). Cadastro com abas Banco de Dados e JasperServer, incluindo adicionar, editar e excluir. O campo Conta aparece no formulário JDBC e na seção de usuário/senha do assistente de conexão JasperServer.
 
-Feche o Studio após salvar, execute Instalar.bat e reinicie pelo Abrir JS.bat desta pasta. Este componente não instala tema nem tradução.
+## Etapas para usar as contas
 
-O Abrir JS.bat otimizado preserva o cache do Eclipse nas aberturas seguintes e usa -clean quando detecta atualização dos complementos. Tema/tradução/ordenação mantêm as funcionalidades com menos trabalho repetitivo.
+1. Abra Contas pelo menu Janela.
+2. Escolha Banco de Dados ou JasperServer.
+3. Adicione Nome da Conta, Usuário e Senha e salve.
+4. Ao criar/editar uma conexão do mesmo tipo, selecione a conta no campo Conta.
+5. Confira os campos Usuário e Senha preenchidos; teste e conclua a conexão pelo assistente nativo.
+
+As listas de contas são independentes. O preenchimento só ocorre após seleção explícita, não troca URL, driver ou destino e não salva nem conecta automaticamente. Escolher Preencher Manualmente mantém os campos atuais editáveis. Gerenciar abre o mesmo cadastro.
+
+## Armazenamento
+
+O cadastro usa `ISecurePreferences`, no nó `com.salutem.jasper.accounts`. Usuário e senha são gravados com criptografia solicitada ao Armazenamento Seguro do Eclipse; nome da conta e tipo são metadados locais. Em falha de criptografia não há fallback em texto simples. Senhas não entram em logs, fontes, instaladores ou GitHub.
+
+Depois de preencher uma conexão, a persistência dessa conexão continua sob responsabilidade do Jasper. O cadastro não migra nem reescreve credenciais de conexões existentes. Excluir ou editar uma conta do cadastro não atualiza retroativamente conexões já salvas. A proteção e recuperação do armazenamento seguro dependem do Eclipse/Windows do usuário; as contas não são transportadas pelos ZIPs.
+
+## Instalação para validação
+
+Atualizar Temas e Ordenacao-de-conexoes; a tradução permanece na versão instalada. Salvar e fechar o Studio antes da instalação. O atualizador mantém backup dos complementos substituídos. Abrir depois pelo Abrir JS.bat.
+
+Compatibilidade: Jaspersoft Studio Community 6.20.6, Windows, Java 17. A validação automatizada inclui componentes SWT e modelos reais, além de credenciais sintéticas com um armazenamento de teste que verifica o contrato de criptografia. Esse teste não constitui uma auditoria da implementação criptográfica do Eclipse. A validação final dos fluxos conectados deve ocorrer no workspace real após instalar e reiniciar.
+
+## Conferência antes de aprovar
+
+- Abrir o sub-relatório com a expressão indicada; confirmar que o fonte correspondente abre.
+- Abrir os menus de contexto e verificar contraste e expansão das listas.
+- Publicar até a seleção do destino: verificar a ordem numérica e a pasta/arquivo inicialmente selecionados, sem concluir publicação de teste desnecessária.
+- Pesquisar um recurso e usar duplo clique e Localizar na Árvore; confirmar pasta expandida, seleção forte e janela fechada.
+- Cadastrar uma conta de teste de cada tipo e preencher um assistente JDBC e um JasperServer. Confirmar que as listas não se misturam e que o modo manual continua funcionando.
+
+Após a aprovação explícita, publicar como versão 2.7.0, com o título Pacote de Atualizações do JasperStudio.
+
+## Revisão após validação de Luckas
+
+A ordenação/destino de publicação e a pesquisa foram aprovados em uso. Permanecem no mesmo fluxo. A correção local de IFileEditorInput.getFile é mantida, junto da resolução de fontes da unidade do JasperServer para expressões literais.
+
+O CSS das sete paletas deixa de impor cores a Menu e MenuItem. Os popups usam o desenho nativo escuro, com reforço no Show e após a abertura. O modo escuro do Windows é restaurado se o Eclipse redefini-lo; os combos continuam sem chamadas de SetWindowTheme enquanto sua lista está aberta. Testes visíveis de pixels e abertura repetida passaram; conferência visual em fixture mostrou menus e opções escuros.
+
+Importação do Gestão adicionada, com leitura paginada da página autenticada, alternativa por JSON, prévia, escolha separada das contas, testes sequenciais/canceláveis e aplicação explícita. Consulte IMPORTACAO-GESTAO.md para padrões, proteção e limites. Não foram importadas nem testadas conexões reais de clientes automaticamente.
+
+Complementos desta revisão: tema 2.3.1 e conexões 1.8.1. A tradução permanece 2.2.2. A versão pública proposta é 2.7.0; não foi publicada. Os pacotes não contêm exportação de dados do Gestão, senhas ou sessões de navegador.
+
+Validação automatizada: 14 testes Java passaram, incluindo contratos das contas, seleções nativas, publicação, temas, ordenação, pesquisa, fontes locais/remotos e catálogo de importação. O teste do coletor passou com paginação, duplicidade, ausência de login e erro sem exportação parcial. Ainda é necessário validar a abertura do sub-relatório real e o ciclo de importação no workspace de Luckas.
+
+Correção 1.8.1: o coletor identifica o cliente pelo campo ID ou pelo prefixo numérico do título, aceitando títulos sem espaço após os parênteses. Cadastros sem ID e identificações divergentes geram avisos de revisão e não interrompem a coleta dos demais.
+
+## Correção da abertura pelo menu
+
+O log do workspace confirmou `Command 'com.salutem.jasper.gestaoImport' failed` antes da execução do handler. O registro de extensões associava `GestaoImportHandler` e `AccountsHandler` ao fragmento de tradução `org.eclipse.urischeme.nl_pt_BR`; o Equinox recusava carregar classes a partir desse fragmento. Os manifestos e o plugin.xml dos JARs instalados estavam corretos. O cache do registro havia sido mantido da configuração anterior enquanto o inventário de bundles já havia sido atualizado.
+
+A correção fica no ciclo de instalação, sem substituir o evento, a janela ou os bindings de importação. O instalador preserva em backup o cache derivado `configuration/org.eclipse.core.runtime` da instalação e de seu perfil específico no usuário, identificado pelo mesmo hash do Equinox. No reinício, o Eclipse recria o registro e resolve os handlers no módulo proprietário. A reinstalação também repara o cache quando os JARs já são idênticos. Relatórios, preferências do workspace, conexões e armazenamento seguro não são alvos da operação.
+
+`scripts/Repair-RegistryCache.ps1` permite reparar apenas esse cache, com `-ValidateOnly` para inspecionar o plano. A instalação e a reparação recusam prosseguir enquanto o Studio estiver aberto. Caminhos inesperados, links e conteúdo não reconhecido são recusados antes de mover arquivos. O backup é restaurado se a movimentação de outro cache falhar.
+
+Teste automatizado em PowerShell 5.1: hash compatível com o Equinox, configurações exatas, backup íntegro, idempotência, recusa de conteúdo desconhecido e caminhos indevidos, restauração após falha parcial e preservação de relatórios, preferências, segredos e configuração de outro produto. O teste foi incluído no CI.
+
+A reparação foi aplicada com o Studio fechado: dois caches preservados em backup e nenhum JAR substituído. `scripts/Test-ImportRegistry.ps1` executou um teste de integração no Equinox real da instalação, usando configuração, workspace e perfil de teste isolados. Os handlers de Importação e Contas foram resolvidos no bundle `com.salutem.jasper.connectionorder`. O comando de importação abriu uma janela SWT visível com cinco colunas, três seletores inicializados e as ações esperadas; o comando de contas abriu sua janela com duas abas separadas. Os testes concluíram com sucesso, sem exceções de abertura. A ferramenta externa de captura/inspeção visual estava indisponível, por isso a verificação da exibição e dos controles foi automatizada dentro do próprio SWT.
+
+## Gerenciamento de conexões — componente 1.8.2
+
+O importador mantinha cadastros encontrados selecionáveis como atualizações de nome, testava uma conexão temporária em vez do cadastro existente e atualizava apenas o índice interno depois de aplicar, sem refazer a listagem. A gravação também repetia a varredura completa por item.
+
+A classificação e a guarda de adição foram centralizadas em GestaoReconciliation. A visão padrão Pendentes exclui cadastros completos e os testes válidos; Cadastradas e Todas mantêm acesso aos itens encontrados. Cadastro completo e conectividade verificada são estados distintos. Falhas de teste, incompletudes e conflitos continuam visíveis, mas um endereço já cadastrado nunca é oferecido como uma segunda adição. Nomes manuais e todos os parâmetros existentes são preservados.
+
+GestaoConnections reutiliza os repositórios e eventos nativos, testa cópias das configurações salvas e mantém um índice por lote. A guarda de concorrência confere presença novamente antes de gravar e serializa importações nesta instância. Testes prévios são invalidados quando mudam parâmetros relevantes. A tabela acompanha adição, edição e remoção por eventos e ao recuperar o foco; não há varredura periódica ou conexão de rede automática.
+
+Testes: classificação e normalização, quatro importações simultâneas com uma gravação, lote de 100 conexões com uma leitura do índice, preservação, conflito de nomes por tipo, falha parcial e invalidação de testes antigos. No Equinox/SWT real, com perfil de teste isolado, a janela abriu com quatro seletores e as alterações nos repositórios nativos atualizaram automaticamente as visões. Não foram usados bancos, servidores ou credenciais reais de clientes.

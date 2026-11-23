@@ -4,24 +4,24 @@
     "packageVersion": "2.7.0",
     "studioVersion": "6.20.6.final",
     "javaMinimum": 17,
-    "theme": "2.3.0",
+    "theme": "2.4.0",
     "language": "2.2.2",
-    "connectionOrder": "1.6.0",
+    "connectionOrder": "1.8.2",
     "translationFragments": "2.1.2"
   },
-  "sourceDigest": "214fcc001343f3f62b4393b019c9c6e3a00eb197e7e9a84ae851c9e64ae7ccc9",
+  "sourceDigest": "4f7b188feed31d29eafeb9ef6273729df2c3bf3d4bd67ae3f942ee4059165132",
   "files": [
     {
-      "path": "artifacts/plugins/com.salutem.jasper.connectionorder_1.6.0.jar",
-      "sha256": "b3985a4a8bed8eb5557cd342988e0e8817a90e2ad92d67bbd8f861f6c90a6894"
+      "path": "artifacts/plugins/com.salutem.jasper.connectionorder_1.8.2.jar",
+      "sha256": "08c84dd8e5fc96c9b5b7140182a0432bad2201ba84ceca8b0d4c8d1806f77b83"
     },
     {
       "path": "artifacts/plugins/com.salutem.jasper.language.pt_BR_2.2.2.jar",
       "sha256": "69430c885bc1c7e2b06bf605e683554cc7956564c46266c3ab391c55eaa4421d"
     },
     {
-      "path": "artifacts/plugins/com.salutem.jasper.theme.deepblue_2.3.0.jar",
-      "sha256": "c884efce8e2f0badfd28e2d7bac7cd5ecf84bd7a35db89efd6ba667b234ec2d5"
+      "path": "artifacts/plugins/com.salutem.jasper.theme.deepblue_2.4.0.jar",
+      "sha256": "181580e02009438155eb5ea0b869009daea6b49130871f8d8e7fd7a8d6236ea6"
     },
     {
       "path": "artifacts/plugins/com.salutem.l10n.com.jaspersoft.studio.babel.editor.pt_BR_2.1.2.jar",

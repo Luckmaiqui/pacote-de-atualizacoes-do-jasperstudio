@@ -39,11 +39,11 @@ Label:disabled, CLabel:disabled {
     color: #AEB6C2;
 }
 Group { background-color: #090A0C; color: #E8EAED; }
-Button, ToolItem, MenuItem {
+Button, ToolItem {
     background-color: #14171C;
     color: #E8EAED;
 }
-MenuBar, Menu { background-color: #050608; color: #E8EAED; }
+MenuBar { background-color: #050608; color: #E8EAED; }
 Link, a, .hyperlink { color: #7DDED2; }
 .MTrimBar .MToolItem:selected { background-color: #14171C; }
 
@@ -98,7 +98,7 @@ ToolBar, ToolBar ToolItem, CoolBar, .MToolBar, .MTrimBar ToolBar,
 }
 Table { swt-lines-visible: false; swt-header-background-color: #090A0C; swt-header-color: #E8EAED; }
 Text[style~='SWT.PASSWORD'] { background-color: #090A0C; color: #E8EAED; }
-Menu, MenuItem, MenuBar { background-color: #090A0C; color: #E8EAED; }
+MenuBar { background-color: #090A0C; color: #E8EAED; }
 
 ToolItem, .MTrimBar .MToolItem { background-color: #090A0C; color: #E8EAED; }
 .MTrimBar .MToolItem:selected { background-color: #35404F; }

@@ -3,7 +3,7 @@ on:
   push:
     tags: ['v*']
     branches: ['main']
-    paths: ['jasperstudio-update-v2.6.3.zip']
+    paths: ['jasperstudio-update-v2.7.0.zip']
   workflow_dispatch:
     inputs:
       version:
@@ -30,15 +30,15 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Import verified 2.6.3 update
-        if: github.ref_type == 'branch' && (github.event_name == 'push' || inputs.version == '2.6.3')
+      - name: Import verified 2.7.0 update
+        if: github.ref_type == 'branch' && (github.event_name == 'push' || inputs.version == '2.7.0')
         shell: pwsh
         run: |
-          $archive = 'jasperstudio-update-v2.6.3.zip'
-          if ((Get-FileHash $archive).Hash -ne 'D4D81CCB7659FD2EE6680CEC8A109604DF372EB719BC68F26752F87D34BEE095') { throw 'SHA256 inválido' }
+          $archive = 'jasperstudio-update-v2.7.0.zip'
+          if ((Get-FileHash $archive).Hash -ne '12F502792117D5D981925BB8D98E9832E8141F678D1DBC2520BF20110A292A85') { throw 'SHA256 inválido' }
           $stage = Join-Path $env:RUNNER_TEMP 'source-update'
           Expand-Archive -LiteralPath $archive -DestinationPath $stage
-          git rm --ignore-unmatch artifacts/plugins/com.salutem.jasper.language.pt_BR_2.2.1.jar 'artifacts/plugins/com.salutem.l10n.*_2.1.1.jar'
+          git rm --ignore-unmatch artifacts/plugins/com.salutem.jasper.connectionorder_1.6.0.jar artifacts/plugins/com.salutem.jasper.theme.deepblue_2.2.2.jar
           Get-ChildItem -LiteralPath $stage | Where-Object Name -notin @('.git','.github') | ForEach-Object { Copy-Item -LiteralPath $_.FullName -Destination . -Recurse -Force }
           node scripts/Verify.mjs
           if ($LASTEXITCODE -ne 0) { throw 'Verificação falhou' }
@@ -47,7 +47,7 @@ jobs:
           git add --all -- ':!.github'
           git diff --cached --quiet
           if ($LASTEXITCODE -ne 0) {
-            git commit -m 'fix: preservar sigla ID nos rótulos da interface 2.6.3'
+            git commit -m 'feat: publicar pacote 2.7.0 com contas e importacao do Gestao'
             git push origin HEAD:main
             if ($LASTEXITCODE -ne 0) { throw 'Push falhou' }
           }
@@ -89,11 +89,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          $assets = @(Get-ChildItem dist/*.zip | ForEach-Object FullName) + @((Resolve-Path dist/SHA256SUMS.txt).Path)
+          $version = (Get-Content versions.json -Raw | ConvertFrom-Json).packageVersion
+          $assets = @(Get-ChildItem "dist/*-v$version.zip" | ForEach-Object FullName) + @((Resolve-Path dist/SHA256SUMS.txt).Path)
+          if ($assets.Count -ne 5) { throw 'Esperados quatro pacotes e o arquivo de hashes desta versão' }
           gh release create $env:RELEASE_TAG @assets --repo $env:GITHUB_REPOSITORY --target (git rev-parse HEAD) --title "Pacote de Atualizações do JasperStudio" --notes-file "docs/releases/$env:RELEASE_TAG.md"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          $releases = gh release list --repo $env:GITHUB_REPOSITORY --json tagName | ConvertFrom-Json
-          foreach ($release in $releases) {
-            gh release edit $release.tagName --repo $env:GITHUB_REPOSITORY --title 'Pacote de Atualizações do JasperStudio'
-            if ($LASTEXITCODE -ne 0) { throw 'Falha ao atualizar título da release' }
-          }

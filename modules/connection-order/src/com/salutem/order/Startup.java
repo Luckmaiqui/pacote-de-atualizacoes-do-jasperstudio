@@ -7,6 +7,8 @@ public final class Startup implements IStartup {
  public void earlyStartup(){Display display=Display.getDefault();display.asyncExec(()->{
   new ConnectionSearch().install(display);
   ExplorerSearch.install(display);
+  new ConnectionUi().install(display);
+  new SubreportOpener().install(display);
   try{
    storagesField=DataAdapterManager.class.getDeclaredField("storages");storagesField.setAccessible(true);
    descriptorsField=ADataAdapterStorage.class.getDeclaredField("daDescriptors");descriptorsField.setAccessible(true);

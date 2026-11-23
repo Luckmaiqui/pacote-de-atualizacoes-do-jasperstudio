@@ -68,6 +68,15 @@ if(-not $PackageOnly){
         [IO.Compression.ZipFileExtensions]::ExtractToFile($dto,$dtoPath,$true)
         $classpath+=[IO.Path]::PathSeparator+$dtoPath.Replace('\','/')
     }finally{$serverZip.Dispose()}
+    # The engine is nested inside its OSGi bundle, not on ECJ's flat JAR class path.
+    $engineZip=[IO.Compression.ZipFile]::OpenRead((Join-Path $plugins 'net.sf.jasperreports_6.20.6.final.jar'))
+    try{
+        $engine=$engineZip.GetEntry('lib/jasperreports-6.20.6.jar')
+        if(-not $engine){throw 'Engine JasperReports 6.20.6 não encontrado.'}
+        $enginePath=Join-Path $root 'build/jasperreports-6.20.6.jar'
+        [IO.Compression.ZipFileExtensions]::ExtractToFile($engine,$enginePath,$true)
+        $classpath+=[IO.Path]::PathSeparator+$enginePath.Replace('\','/')
+    }finally{$engineZip.Dispose()}
     $specs=@(@{Name='theme';Version=$versions.theme;Id='com.salutem.jasper.theme.deepblue'},@{Name='language';Version=$versions.language;Id='com.salutem.jasper.language.pt_BR'},@{Name='connection-order';Version=$versions.connectionOrder;Id='com.salutem.jasper.connectionorder'})
     foreach($spec in $specs){
         $module=Join-Path $root ('modules/'+$spec.Name)
@@ -78,7 +87,8 @@ if(-not $PackageOnly){
         $arguments=@('-17','-encoding','UTF-8','-classpath',('"'+$classpath+'"'),'-d',('"'+$stage.Replace('\','/')+'"'))
         $arguments+=@(Get-ChildItem -LiteralPath (Join-Path $module 'src') -Recurse -File -Filter '*.java'|ForEach-Object{'"'+$_.FullName.Replace('\','/')+'"'})
         [IO.File]::WriteAllText($argfile,($arguments -join "`n"),(New-Object Text.UTF8Encoding($false)))
-        & $java -jar $compiler.FullName ('@'+$argfile)
+        # The argument file is UTF-8; without this the JVM reads it in the Windows ANSI code page and accented paths break.
+        & $java '-Dfile.encoding=UTF-8' -jar $compiler.FullName ('@'+$argfile)
         if($LASTEXITCODE -ne 0){throw "Compilação falhou: $($spec.Name)"}
         # Compiler arguments are build metadata, not part of the plug-in.
         $bundle=Join-Path $root ('build/bundle-'+$spec.Name+'-'+[guid]::NewGuid())
@@ -112,6 +122,7 @@ foreach($component in @('themes','translation','connection-order')){
     New-Item -ItemType Directory -Force -Path (Join-Path $destination 'pacote/plugins'),(Join-Path $destination 'fontes')|Out-Null
     Get-ChildItem -LiteralPath (Join-Path $root "installer/$component")|ForEach-Object{Copy-Item -LiteralPath $_.FullName -Destination $destination -Recurse}
     Copy-Item -LiteralPath (Join-Path $root 'installer/common/Instalar.ps1') -Destination $destination
+    Copy-Item -LiteralPath (Join-Path $root 'installer/common/RegistryCache.ps1') -Destination $destination
     $entries=@($snapshot.files|Where-Object{
         if($component -eq 'themes'){$_.path -match '^artifacts/plugins/com\.salutem\.jasper\.theme\.'}
         elseif($component -eq 'translation'){$_.path -match '^vendor/|^artifacts/plugins/com\.salutem\.(l10n\.|jasper\.language\.)'}
@@ -125,6 +136,8 @@ foreach($component in @('themes','translation','connection-order')){
     Copy-Item -LiteralPath (Join-Path $root "modules/$module") -Destination (Join-Path $destination 'fontes') -Recurse
     if($component -eq 'translation'){Copy-Item -LiteralPath (Join-Path $root 'translations') -Destination (Join-Path $destination 'fontes') -Recurse}
     Copy-Item -LiteralPath (Join-Path $root 'THIRD_PARTY_NOTICES.md') -Destination $destination
+    Copy-Item -LiteralPath (Join-Path $root 'docs/REVISAO-2.7.0.md') -Destination $destination
+    if($component -eq 'connection-order'){Copy-Item -LiteralPath (Join-Path $root 'docs/IMPORTACAO-GESTAO.md') -Destination $destination}
     $singleStage=Join-Path $root ('build/single-'+$component+'-'+[guid]::NewGuid())
     New-Item -ItemType Directory -Force -Path $singleStage|Out-Null
     Copy-Item -LiteralPath $destination -Destination $singleStage -Recurse
@@ -134,7 +147,7 @@ foreach($component in @('themes','translation','connection-order')){
 }
 $instructions=@'
 ESCOLHA APENAS O QUE DESEJA INSTALAR
-Temas: quatro opções de cores em Janela > Preferências > Gerais > Aparência.
+Temas: sete opções de cores em Janela > Preferências > Gerais > Aparência.
 Traducao-ptBR: interface em Português (Brasil), independente dos temas.
 Ordenacao-de-conexoes: ordem numérica dos adaptadores, independente dos demais.
 Cada pasta tem seu próprio Instalar.bat. Feche o Studio antes de instalar.
