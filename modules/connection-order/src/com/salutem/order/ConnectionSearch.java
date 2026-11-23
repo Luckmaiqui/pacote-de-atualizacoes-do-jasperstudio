@@ -93,6 +93,7 @@ public final class ConnectionSearch {
   table.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
   table.setBackground(owner.getBackground());table.setForeground(owner.getForeground());
   search.setBackground(table.getBackground());search.setForeground(table.getForeground());
+  Button importGestao=new Button(window,SWT.PUSH);importGestao.setText(pt()?"Importar Conexões do Gestão…":"Import connections from Gestão…");importGestao.addListener(SWT.Selection,e->{window.dispose();display.asyncExec(()->{if(!owner.isDisposed())new GestaoImportDialog(owner).open();});});
   Label status=new Label(window,SWT.NONE);status.setLayoutData(new GridData(SWT.FILL,SWT.CENTER,true,false));
   status.setBackground(owner.getBackground());status.setForeground(owner.getForeground());
   Runnable filter=()->{

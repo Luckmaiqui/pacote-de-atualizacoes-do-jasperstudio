@@ -24,7 +24,7 @@ final class GlobalSearchDialog extends Dialog {
  private final List<GlobalSearchEngine.Hit> hits=new ArrayList<>();
  private Object initialServer;private List<GlobalSearchEngine.Target> selectedTargets=new ArrayList<>();
  private Text query;private Combo scope;private Table table,connections;private Label status;private Button cancel;
- private GlobalSearchEngine.Session session;private int generation,completed,failed,total;
+ private GlobalSearchEngine.Session session;private int generation,completed,failed,total;private Job locating;
  static void show(RepositoryView view,TreeViewer viewer,List<Object> servers,Object selectedServer){
   if(current!=null && current.getShell()!=null && !current.getShell().isDisposed()){current.applyContext(selectedServer);current.getShell().forceActive();return;}
   current=new GlobalSearchDialog(view,viewer,servers);current.initialServer=selectedServer;current.open();
@@ -63,7 +63,7 @@ final class GlobalSearchDialog extends Dialog {
  protected void createButtonsForButtonBar(Composite parent){createButton(parent,100,"Localizar na árvore",false);createButton(parent,IDialogConstants.CLOSE_ID,"Fechar",false);}
  protected void buttonPressed(int id){if(id==100)reveal();else close();}
  private void stop(){generation++;if(session!=null)session.cancel();if(cancel!=null && !cancel.isDisposed())cancel.setEnabled(false);}
- public boolean close(){stop();return super.close();}
+ public boolean close(){stop();if(locating!=null)locating.cancel();return super.close();}
  private void search(){
   String requested=query.getText().strip();if(requested.length()<3){status.setText("Digite pelo menos 3 caracteres para pesquisar.");return;}
   List<GlobalSearchEngine.Target> selected=selectedScope(targets,selectedTargets,scope.getSelectionIndex());
@@ -94,19 +94,23 @@ final class GlobalSearchDialog extends Dialog {
   if(dialog.open()==org.eclipse.jface.window.Window.OK){selectedTargets=new ArrayList<>();for(Object value:dialog.getResult())selectedTargets.add((GlobalSearchEngine.Target)value);scope.setItem(1,"Servidores Selecionados ("+selectedTargets.size()+")");scope.select(1);}
  }
  private void reveal(){
+  if(locating!=null && locating.getState()!=Job.NONE)return;
   int index=table.getSelectionIndex();if(index<0 || index>=hits.size())return;var hit=hits.get(index);Display display=getShell().getDisplay();
-  new Job("Localizar recurso do JasperServer"){
+  status.setText("Localizando o recurso e abrindo sua pasta…");
+  locating=new Job("Localizar recurso do JasperServer"){
    protected IStatus run(IProgressMonitor monitor){try{
-    Field field=RepositoryView.class.getDeclaredField("rprovs");field.setAccessible(true);Object provider=null;
-    for(Object p:(Iterable<?>)field.get(view))if(p.getClass().getName().equals("com.jaspersoft.studio.server.ServerProvider")){provider=p;break;}
-    if(provider==null)throw new IllegalStateException("Provedor JasperServer indisponível");
-    ClassLoader loader=provider.getClass().getClassLoader();Class<?> helper=Class.forName("com.jaspersoft.studio.server.WSClientHelper",true,loader);Object descriptor=null;
+    if(!NativeServerSearch.connect(hit.target().connection(),monitor))return Status.CANCEL_STATUS;
+    ClassLoader loader=hit.target().connection().getClass().getClassLoader();Class<?> helper=Class.forName("com.jaspersoft.studio.server.WSClientHelper",true,loader);Object descriptor=null;
     for(Method method:helper.getMethods())if(method.getName().equals("toResourceDescriptor") && method.getParameterCount()==2 && method.getParameterTypes()[0].isInstance(hit.target().connection()) && method.getParameterTypes()[1].isInstance(hit.nativeValue())){descriptor=method.invoke(null,hit.target().connection(),hit.nativeValue());break;}
     if(descriptor==null)throw new IllegalStateException("Não foi possível localizar o recurso");
-    Object chosenProvider=provider,resource=descriptor;Class<?> job=Class.forName("com.jaspersoft.studio.server.wizard.find.FindResourceJob",true,loader);
-    display.asyncExec(()->{if(viewer.getTree().isDisposed())return;try{ExplorerSearch.selectServer(viewer,hit.target().connection());NativeServerSearch.reveal(job,chosenProvider,hit.target().connection(),resource,viewer);}catch(Exception error){showError(error);}});
+    Object found=null;for(Method method:helper.getMethods())if(method.getName().equals("findSelected") && method.getParameterCount()==3){found=method.invoke(null,monitor,descriptor,hit.target().connection());break;}
+    if(monitor.isCanceled())return Status.CANCEL_STATUS;if(found==null)throw new IllegalStateException("O recurso não foi encontrado na árvore do servidor.");
+    Object resource=found;
+    Field field=RepositoryView.class.getDeclaredField("rprovs");field.setAccessible(true);Object provider=null;for(Object p:(Iterable<?>)field.get(view))if(p.getClass().getName().equals("com.jaspersoft.studio.server.ServerProvider")){provider=p;break;}
+    if(provider==null)throw new IllegalStateException("Provedor JasperServer indisponível");Object nativeProvider=provider;
+    display.asyncExec(()->{if(viewer.getTree().isDisposed() || getShell()==null || getShell().isDisposed())return;try{NativeServerSearch.refreshForReveal(viewer,nativeProvider,()->ExplorerSearch.selectServer(viewer,hit.target().connection()));NativeServerSearch.revealAndClose(viewer,resource,()->close());}catch(Exception error){showError(error);}});
    }catch(Exception error){display.asyncExec(()->showError(error));}return Status.OK_STATUS;}
-  }.schedule();
+  };locating.schedule();
  }
  private void showError(Throwable error){if(getShell()!=null && !getShell().isDisposed())MessageDialog.openError(getShell(),"JasperStudio",Objects.toString(NativeServerSearch.cause(error).getMessage(),"Erro ao localizar recurso"));}
 }

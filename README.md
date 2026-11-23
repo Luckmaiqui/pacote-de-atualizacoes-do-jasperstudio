@@ -2,16 +2,18 @@
 
 Complementos independentes para **Jaspersoft Studio Community 6.20.6 no Windows, Java 17+**.
 
+> Versão 2.7.0: contas, importação do Gestão e melhorias no gerenciamento de conexões. Consulte as [notas da versão](docs/releases/v2.7.0.md), o [histórico de revisão](docs/REVISAO-2.7.0.md) e a [Importação do Gestão](docs/IMPORTACAO-GESTAO.md). A validação de alguns fluxos reais continua pendente, conforme as notas.
+
 ## Escolha o que instalar
 
 Baixe em [Releases](https://github.com/Luckmaiqui/pacote-de-atualizacoes-do-jasperstudio/releases):
 
 | ZIP | Pasta | Conteúdo |
 |---|---|---|
-| JS-Temas-v2.6.3.zip | Temas | Noite, Grafite, Floresta, Ameixa, GitHub, Ônix e Meia-Noite |
-| JS-Traducao-ptBR-v2.6.3.zip | Traducao-ptBR | Tradução para Português (Brasil) e bandeira |
-| JS-Ordenacao-v2.6.3.zip | Ordenacao-de-conexoes | Pesquisa por código/nome no preview e dataset, mais ordenação numérica |
-| JS-Pacotes-Separados-v2.6.3.zip | Pacote de Atualizações do JasperStudio | As três pastas acima, com instaladores separados |
+| JS-Temas-v2.7.0.zip | Temas | Noite, Grafite, Floresta, Ameixa, GitHub, Ônix e Meia-Noite |
+| JS-Traducao-ptBR-v2.7.0.zip | Traducao-ptBR | Tradução para Português (Brasil) e bandeira |
+| JS-Ordenacao-v2.7.0.zip | Ordenacao-de-conexoes | Pesquisa e ordenação de conexões, contas e importação do Gestão |
+| JS-Pacotes-Separados-v2.7.0.zip | Pacote de Atualizações do JasperStudio | As três pastas acima, com instaladores separados |
 
 Cada pasta tem **Instalar.bat** e **Abrir JS.bat** próprios. Você pode instalar apenas uma, duas ou todas. O pacote de temas não instala tradução nem muda o idioma. O pacote de tradução não instala nem seleciona tema. A ordenação também é independente.
 

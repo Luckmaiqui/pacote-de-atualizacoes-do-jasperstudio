@@ -5,6 +5,24 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 /** Uses the explicit-server API; it does not derive the server from tree selection. */
 public final class NativeServerSearch {
+ static void refreshForReveal(TreeViewer viewer,Object provider,Runnable clearFilter)throws ReflectiveOperationException{
+  // Match the native FindResourceJob: expose the already-loaded path without
+  // recursively loading every server during refresh, and always restore it.
+  Method skip=provider.getClass().getMethod("setSkipLazyLoad",boolean.class);
+  try{skip.invoke(provider,true);clearFilter.run();viewer.refresh(false);}finally{skip.invoke(provider,false);}
+ }
+ public static void revealAndClose(TreeViewer viewer,Object result,Runnable close){focusResult(viewer,result);close.run();if(!viewer.getTree().isDisposed()){viewer.getTree().getShell().forceActive();viewer.getTree().setFocus();}}
+ public static void focusResult(TreeViewer viewer,Object result){
+  viewer.reveal(result);
+  if(result instanceof com.jaspersoft.studio.model.ANode){
+   var node=(com.jaspersoft.studio.model.ANode)result;
+   java.util.List<Object> ancestors=new java.util.ArrayList<>();for(var parent=node.getParent();parent!=null;parent=parent.getParent())ancestors.add(parent);
+   java.util.Collections.reverse(ancestors);for(Object parent:ancestors)viewer.setExpandedState(parent,true);
+   if(result.getClass().getName().equals("com.jaspersoft.studio.server.model.MFolder"))viewer.setExpandedState(result,true);
+  }
+  viewer.getTree().setData("salutem.searchTarget",result);
+  viewer.setSelection(new org.eclipse.jface.viewers.StructuredSelection(result),true);viewer.getTree().setFocus();viewer.getTree().redraw();
+ }
  static Object client(Object server)throws ReflectiveOperationException{return server.getClass().getMethod("getWsClient").invoke(server);}
  static boolean connect(Object server,IProgressMonitor monitor)throws ReflectiveOperationException{
   if(monitor.isCanceled())return false;

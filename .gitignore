@@ -12,3 +12,6 @@ dist/
 .metadata/
 *.keystore
 *.p12
+
+# Exportações privadas do Gestão
+conexoes-gestao*.json
