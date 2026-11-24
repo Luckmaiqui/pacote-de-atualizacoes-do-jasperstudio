@@ -10,6 +10,11 @@ for(const key of p.ids.split(',')){
  fs.writeFileSync(path.join(resources,'css',p[key+'.css']),css);
  xml.push(`  <theme id="${p[key+'.id']}" label="${p[key+'.label']}" basestylesheeturi="css/${p[key+'.css']}"/>`,`  <themeAssociation themeId="${p[key+'.id']}" colorAndFontId="org.eclipse.ui.defaultTheme"/>`);
 }
-xml.push(' </extension>',' <extension point="org.eclipse.ui.startup"><startup class="com.salutem.theme.Startup"/></extension>','</plugin>','');
+xml.push(' </extension>',' <extension point="org.eclipse.ui.startup"><startup class="com.salutem.theme.Startup"/></extension>',
+ ' <extension point="org.eclipse.ui.commands"><command id="com.salutem.theme.pickBlockColor" name="%command.pickBlockColor" description="%command.pickBlockColor.description" categoryId="org.eclipse.ui.category.window"/></extension>',
+ ' <extension point="org.eclipse.ui.handlers"><handler commandId="com.salutem.theme.pickBlockColor" class="com.salutem.theme.PickBlockHandler"/></extension>',
+ ' <extension point="org.eclipse.ui.menus"><menuContribution locationURI="menu:window?after=additions"><command commandId="com.salutem.theme.pickBlockColor" label="%command.pickBlockColor" style="push"/></menuContribution></extension>',
+ ' <extension point="org.eclipse.ui.preferencePages"><page id="com.salutem.theme.customColors" name="%page.customColors" category="org.eclipse.ui.preferencePages.Views" class="com.salutem.theme.CustomColorsPage"/></extension>',
+ '</plugin>','');
 fs.writeFileSync(path.join(resources,'plugin.xml'),xml.join('\n'));
 console.log('Temas gerados: '+p.ids.split(',').map(id=>p[id+'.label']).join(', '));

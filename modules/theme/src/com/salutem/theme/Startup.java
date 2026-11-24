@@ -23,6 +23,9 @@ public final class Startup implements IStartup {
  private java.lang.reflect.Field customComboList;
  public void earlyStartup() {
   Display d=Display.getDefault();
+  // Block colours chosen by the user apply to any theme, not only Salutem palettes.
+  d.asyncExec(()->CustomColors.install(d));
+  PaletteSurface.theme=()->bg!=null && activeTheme()?new Color[]{bg,fg,accent}:null;
   d.asyncExec(new Runnable() { public void run() {
    if(d.isDisposed()) return;
    ThemePalette palette=ThemePalette.find(InstanceScope.INSTANCE.getNode("org.eclipse.e4.ui.css.swt.theme").get("themeid", ""));
@@ -80,6 +83,11 @@ public final class Startup implements IStartup {
   editors.put("currentLineColor",rgbString(palette.accent));
  }
  private boolean dark(Color c) { return c.getRed()+c.getGreen()+c.getBlue()<330; }
+ /** Palette background, unless the user chose a colour for this control's block (CustomColors). */
+ private Color surface(Control c) { return CustomColors.background(c,bg); }
+ /** Palette text colour, or black/white when content sits on a chosen background it would be hard to read on. */
+ private Color text(Control c) { return text(c,fg); }
+ private Color text(Control c,Color theme) { return CustomColors.foreground(c,theme); }
  private void visitVisible(Control c){
   if(c.isDisposed())return;
   ThemePalette palette=ThemePalette.find(InstanceScope.INSTANCE.getNode("org.eclipse.e4.ui.css.swt.theme").get("themeid", ""));
@@ -102,7 +110,7 @@ public final class Startup implements IStartup {
   }
   if(c instanceof Button && (c.getStyle()&(SWT.CHECK|SWT.RADIO))!=0) {
    Color parent=c.getParent().getBackground();
-   if(dark(parent)) { if(!c.getBackground().equals(parent))c.setBackground(parent); if(dark(c.getForeground()))c.setForeground(fg); }
+   if(dark(parent)) { if(!c.getBackground().equals(parent))c.setBackground(parent); if(CustomColors.background(c)==null && dark(c.getForeground()))c.setForeground(fg); }
   }
   if(c instanceof Sash && !c.getBackground().equals(border))c.setBackground(border);
   if(c instanceof Composite) for(Control child:((Composite)c).getChildren())visit(child);
@@ -114,7 +122,7 @@ public final class Startup implements IStartup {
   if(isPublishingDatasource(c) || (c instanceof TabFolder && containsDatasourcePanel((Composite)c,0))) publishColors(c);
   if(name.startsWith("org.eclipse.nebula.widgets.gallery.")) gallery(c);
   if(c instanceof Scale || c instanceof Slider) {
-   c.setBackground(bg);c.setForeground(fg);c.getParent().setBackground(bg);
+   c.setBackground(bg);c.setForeground(fg);c.getParent().setBackground(surface(c.getParent()));
   }
   if(c instanceof Scrollable && c.getData("salutem.nativeTheme")==null) {
    if(c instanceof Combo || c instanceof org.eclipse.swt.widgets.List)nativeCombo(c);
@@ -131,22 +139,22 @@ public final class Startup implements IStartup {
   if(c instanceof Shell) {Menu m=((Shell)c).getMenuBar(); if(m!=null)menu(m);}
   if(c.getMenu()!=null)menu(c.getMenu());
   if(c instanceof Tree) {
-   Tree t=(Tree)c;
+   Tree t=(Tree)c;Color back=surface(t),text=text(t);
    if(t.getData("salutem.strongSelection")==null){
     t.setData("salutem.strongSelection",Boolean.TRUE);
     t.addListener(SWT.EraseItem,event->{if(activeTheme() && (event.detail&SWT.SELECTED)!=0){
      event.gc.setBackground(selectionColor());event.gc.setForeground(fg);event.gc.fillRectangle(event.x,event.y,event.width,event.height);event.detail&=~(SWT.SELECTED|SWT.HOT);
     }});
    }
-   t.setLinesVisible(false);t.setHeaderBackground(bg);t.setHeaderForeground(fg);
-   for(TreeItem i:t.getItems())uniformItem(i,Math.max(1,t.getColumnCount()));
+   t.setLinesVisible(false);t.setHeaderBackground(back);t.setHeaderForeground(text);
+   for(TreeItem i:t.getItems())uniformItem(i,Math.max(1,t.getColumnCount()),back,text);
   }
   if(c instanceof org.eclipse.swt.custom.CTabFolder) {
    org.eclipse.swt.custom.CTabFolder tabs=(org.eclipse.swt.custom.CTabFolder)c;
-   tabs.setSelectionBackground(bg);tabs.setSelectionForeground(fg);
+   tabs.setSelectionBackground(tabs.getItemCount()==0?surface(c):bg);tabs.setSelectionForeground(fg);
   }
   if(c instanceof org.eclipse.swt.custom.CLabel) {
-   ((org.eclipse.swt.custom.CLabel)c).setBackground(bg);c.setForeground(fg);
+   ((org.eclipse.swt.custom.CLabel)c).setBackground(surface(c));c.setForeground(text(c));
   }
   if(c instanceof CCombo) {
    CCombo combo=(CCombo)c;
@@ -159,21 +167,21 @@ public final class Startup implements IStartup {
    }
   }
   if(c instanceof Combo || c instanceof CCombo || c instanceof org.eclipse.swt.widgets.List) {
-   c.setBackground(bg);c.setForeground(fg);
+   c.setBackground(surface(c));c.setForeground(text(c));
   }
   if(c instanceof org.eclipse.ui.forms.widgets.ExpandableComposite) {
-   c.setBackground(bg);c.setForeground(fg);
+   c.setBackground(surface(c));c.setForeground(text(c));
   }
   if(c instanceof org.eclipse.swt.custom.CLabel && inProperties(c)) {
-   ((org.eclipse.swt.custom.CLabel)c).setBackground(bg);c.setForeground(fg);
+   ((org.eclipse.swt.custom.CLabel)c).setBackground(surface(c));c.setForeground(text(c));
   }
   if(c instanceof Table) {
    Table t=(Table)c;
    if(t.getLinesVisible()) t.setLinesVisible(false);
-   t.setHeaderBackground(bg); t.setHeaderForeground(fg);
+   t.setHeaderBackground(surface(t)); t.setHeaderForeground(text(t));
   }
   if(c instanceof Text && (c.getStyle()&SWT.PASSWORD)!=0) {c.setBackground(bg);c.setForeground(fg);}
-  if(c instanceof ToolBar || c instanceof org.eclipse.swt.widgets.CoolBar) {c.setBackground(bg);c.setForeground(fg);}
+  if(c instanceof ToolBar || c instanceof org.eclipse.swt.widgets.CoolBar) {c.setBackground(surface(c));c.setForeground(text(c));}
   if(c instanceof Button && (c.getStyle()&SWT.PUSH)!=0 && name.contains("preview")) c.setBackground(bg);
   if(name.startsWith("org.eclipse.jface.text.source.") || name.contains("ViewerCanvas") || name.contains("FlyoutPaletteComposite$TitleCanvas")) {
    c.setBackground(bg);c.setForeground(fg);
@@ -185,16 +193,7 @@ public final class Startup implements IStartup {
     ruler((Canvas)sibling,(StyledText)c);
    }
   }
-  if(c instanceof FigureCanvas) {
-   IFigure root=((FigureCanvas)c).getContents();
-   if(root!=null && !(root instanceof PaletteSurface) && hasPalette(root,0)) {
-    if(!(root instanceof PaletteSurface)) {
-     ((FigureCanvas)c).setContents(null);
-     PaletteSurface surface=new PaletteSurface(root);
-     ((FigureCanvas)c).setContents(surface);
-    }
-   }
-  }
+  if(c instanceof FigureCanvas) PaletteSurface.wrap((FigureCanvas)c);
   if(c.getClass().getSimpleName().equals("TabbedPropertyTitle")) {
    if(!java.util.Objects.equals(paletteId,c.getData("salutem.titleColors")))try {
     java.lang.reflect.Method method=c.getClass().getMethod("setColor",String.class,org.eclipse.swt.graphics.RGBA.class);
@@ -231,10 +230,11 @@ public final class Startup implements IStartup {
   }catch(ReflectiveOperationException ignored){ }
   if(!enabled) {
    if(label.getData("salutem.enabledForeground")==null)label.setData("salutem.enabledForeground",label.getForeground());
-   if(!muted.equals(label.getForeground()))label.setForeground(muted);
+   Color disabled=text(label,muted);
+   if(!disabled.equals(label.getForeground()))label.setForeground(disabled);
   }else if(label.getData("salutem.enabledForeground") instanceof Color) {
    Color original=(Color)label.getData("salutem.enabledForeground");
-   label.setForeground(original.isDisposed() || dark(original)?fg:original);label.setData("salutem.enabledForeground",null);
+   label.setForeground(text(label,original.isDisposed() || dark(original)?fg:original));label.setData("salutem.enabledForeground",null);
   }
  }
  private boolean inProgressPanel(Control control) {
@@ -259,9 +259,10 @@ public final class Startup implements IStartup {
   return false;
  }
  private void publishColors(Control control) {
+  Color surface=surface(control),text=text(control);
   // Inherited colours can compare equal before a native control has received
   // its own brush; explicitly set them so native buttons do not stay white.
-  control.setBackground(bg);control.setForeground(fg);
+  control.setBackground(surface);control.setForeground(text);
   if((control instanceof Button || control instanceof TabFolder) && control.getData("salutem.surfaceTheme")==null){
    control.setData("salutem.surfaceTheme",Boolean.TRUE);
    org.eclipse.swt.internal.win32.OS.AllowDarkModeForWindow(control.handle,true);
@@ -315,33 +316,15 @@ public final class Startup implements IStartup {
   }
   return false;
  }
- private final class PaletteSurface extends org.eclipse.draw2d.Figure {
-  PaletteSurface(IFigure contents) {setLayoutManager(new org.eclipse.draw2d.StackLayout());add(contents);setBackgroundColor(bg);setOpaque(false);}
-  @Override public void paint(org.eclipse.draw2d.Graphics graphics) {
-   if(!activeTheme()){super.paint(graphics);return;}
-   org.eclipse.draw2d.ScaledGraphics colors=new org.eclipse.draw2d.ScaledGraphics(graphics) {
-    @Override public void setForegroundColor(Color color){super.setForegroundColor(fg);}
-    @Override public void setBackgroundColor(Color color){
-     if(color==null){super.setBackgroundColor(bg);return;}
-     boolean neutral=Math.abs(color.getRed()-color.getGreen())<35 && Math.abs(color.getGreen()-color.getBlue())<35;
-     super.setBackgroundColor(neutral?bg:accent);
-    }
-    @Override public void fillGradient(int x,int y,int width,int height,boolean vertical){
-     pushState();super.setBackgroundColor(bg);super.fillRectangle(x,y,width,height);popState();
-    }
-   };
-   try{super.paint(colors);}finally{colors.dispose();}
-  }
- }
  private boolean activeTheme() {
   return ThemePalette.find(InstanceScope.INSTANCE.getNode("org.eclipse.e4.ui.css.swt.theme").get("themeid",""))!=null;
  }
- private void uniformItem(TreeItem item,int columns) {
+ private void uniformItem(TreeItem item,int columns,Color back,Color text) {
   for(int col=0;col<columns;col++) {
-   if(!bg.equals(item.getBackground(col)))item.setBackground(col,bg);
-   if(!fg.equals(item.getForeground(col)))item.setForeground(col,fg);
+   if(!back.equals(item.getBackground(col)))item.setBackground(col,back);
+   if(!text.equals(item.getForeground(col)))item.setForeground(col,text);
   }
-  for(TreeItem child:item.getItems())uniformItem(child,columns);
+  for(TreeItem child:item.getItems())uniformItem(child,columns,back,text);
  }
  private void menu(Menu m) {
   // SWT.Show is delivered before isVisible() becomes true. Skipping invisible
@@ -403,12 +386,6 @@ public final class Startup implements IStartup {
   if(existing instanceof NativeListSelection){if(((NativeListSelection)existing).matches(handle))return;((NativeListSelection)existing).close();}
   owner.setData("salutem.selectionPainter",new NativeListSelection(owner,handle,()->accent,()->fg));
  }
- private boolean hasPalette(IFigure f,int depth) {
-  if(f.getClass().getName().contains("palette"))return true;
-  if(depth>5)return false;
-  for(Object o:f.getChildren())if(hasPalette((IFigure)o,depth+1))return true;
-  return false;
- }
  private final java.util.Map<org.eclipse.swt.graphics.RGB,Color> syntaxColors=new java.util.HashMap<>();
  private Color readable(Color old) {
   if(old==null)return null;
@@ -437,9 +414,10 @@ public final class Startup implements IStartup {
   return false;
  }
  private void propertyColors(Control c) {
-  Color surface=(c instanceof Label && (c.getStyle()&SWT.SEPARATOR)!=0)?border:bg;
+  Color surface=(c instanceof Label && (c.getStyle()&SWT.SEPARATOR)!=0)?border:surface(c);
   if(!c.getBackground().equals(surface))c.setBackground(surface);
-  if(!c.getForeground().equals(fg))c.setForeground(fg);
+  Color text=text(c);
+  if(!c.getForeground().equals(text))c.setForeground(text);
   // The header paints its own gradient rather than the Control background.
   if(c.getClass().getSimpleName().equals("TabbedPropertyTitle")) {
    if(!java.util.Objects.equals(paletteId,c.getData("salutem.titleColors")))try {

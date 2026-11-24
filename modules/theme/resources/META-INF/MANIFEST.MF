@@ -6,8 +6,11 @@ Bundle-Version: 2.0.0
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,
  org.eclipse.equinox.preferences,org.eclipse.swt,
- org.eclipse.jface.text,org.eclipse.draw2d,org.eclipse.ui.forms,org.eclipse.e4.ui.css.swt.theme
+ org.eclipse.jface.text,org.eclipse.draw2d,org.eclipse.ui.forms,org.eclipse.e4.ui.css.swt.theme,
+ org.eclipse.core.commands,org.eclipse.e4.ui.model.workbench,org.eclipse.e4.ui.workbench,
+ org.eclipse.e4.ui.services,org.eclipse.e4.core.contexts
 Bundle-ClassPath: .
+Bundle-Localization: plugin
 
 
 

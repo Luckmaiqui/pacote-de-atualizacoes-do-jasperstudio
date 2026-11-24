@@ -1,8 +1,8 @@
 {
-  "packageVersion": "2.7.0",
+  "packageVersion": "2.8.0",
   "studioVersion": "6.20.6.final",
   "javaMinimum": 17,
-  "theme": "2.3.1",
+  "theme": "2.4.0",
   "language": "2.2.2",
   "connectionOrder": "1.8.2",
   "translationFragments": "2.1.2"
