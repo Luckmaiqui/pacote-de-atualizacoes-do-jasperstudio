@@ -1,28 +1,21 @@
 name: Release
 on:
   push:
-    tags: ['v*']
-    branches: ['main']
-    paths: ['jasperstudio-update-v2.7.0.zip']
+    branches: [main]
+    paths: ['jasperstudio-update-v2.8.0.zip']
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Versão do pacote em versions.json (ex.: 1.0.0)'
-        required: true
-        type: string
 permissions:
   contents: write
 concurrency:
-  group: release-${{ github.ref }}
+  group: release-unificada-280
   cancel-in-progress: false
 jobs:
   release:
     runs-on: windows-latest
     steps:
-      - name: Enable long paths on the runner
-        shell: pwsh
-        run: git config --global core.longpaths true
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -30,67 +23,43 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Import verified 2.7.0 update
-        if: github.ref_type == 'branch' && (github.event_name == 'push' || inputs.version == '2.7.0')
+      - name: Importar atualização verificada sem modificar workflows
         shell: pwsh
         run: |
-          $archive = 'jasperstudio-update-v2.7.0.zip'
-          if ((Get-FileHash $archive).Hash -ne '12F502792117D5D981925BB8D98E9832E8141F678D1DBC2520BF20110A292A85') { throw 'SHA256 inválido' }
-          $stage = Join-Path $env:RUNNER_TEMP 'source-update'
-          Expand-Archive -LiteralPath $archive -DestinationPath $stage
-          git rm --ignore-unmatch artifacts/plugins/com.salutem.jasper.connectionorder_1.6.0.jar artifacts/plugins/com.salutem.jasper.theme.deepblue_2.2.2.jar
+          if ((Get-FileHash jasperstudio-update-v2.8.0.zip).Hash -ne 'A793F8ECBAA2B8FE6F6A4E3B624DABEC446D04293BC8A212DD79AB2DB8C2B2AF') { throw 'Arquivo de fontes divergente' }
+          $stage = Join-Path $env:RUNNER_TEMP 'source-update-280'
+          Expand-Archive -LiteralPath jasperstudio-update-v2.8.0.zip -DestinationPath $stage
           Get-ChildItem -LiteralPath $stage | Where-Object Name -notin @('.git','.github') | ForEach-Object { Copy-Item -LiteralPath $_.FullName -Destination . -Recurse -Force }
           node scripts/Verify.mjs
-          if ($LASTEXITCODE -ne 0) { throw 'Verificação falhou' }
+          if ($LASTEXITCODE -ne 0) { throw 'Integridade de fontes/binários divergente' }
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add --all -- ':!.github'
           git diff --cached --quiet
           if ($LASTEXITCODE -ne 0) {
-            git commit -m 'feat: publicar pacote 2.7.0 com contas e importacao do Gestao'
+            git commit -m 'feat: consolidar pacote unificado 2.8.0 e portes exatos do Studio'
             git push origin HEAD:main
-            if ($LASTEXITCODE -ne 0) { throw 'Push falhou' }
+            if ($LASTEXITCODE -ne 0) { throw 'Publicação dos fontes recusada' }
           }
-      - name: Validate release version
-        shell: pwsh
-        env:
-          REQUESTED_VERSION: ${{ inputs.version }}
-        run: |
-          $v = (Get-Content versions.json -Raw | ConvertFrom-Json).packageVersion
-          if ($env:GITHUB_EVENT_NAME -eq 'push' -and $env:GITHUB_REF_TYPE -eq 'tag' -and $env:GITHUB_REF_NAME -ne "v$v") { throw 'Tag divergente de versions.json' }
-          if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch' -and $env:REQUESTED_VERSION -ne $v) { throw 'Versão divergente de versions.json' }
-          if (-not (Test-Path "docs/releases/v$v.md")) { throw 'Notas de release ausentes' }
-          "RELEASE_TAG=v$v" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
-      - name: Verify artifacts and translations
-        run: node scripts/Verify.mjs
-      - name: Test numeric order
+      - name: Testar fontes e coletor
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force build/test-classes | Out-Null
-          javac -encoding UTF-8 -d build/test-classes modules/connection-order/src/com/salutem/order/NumericOrder.java tests/NumericOrderTest.java
+          node scripts/Verify.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          java -cp build/test-classes NumericOrderTest
+          node tests/gestao-export.test.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Test aggregate search and cancellation
-        shell: pwsh
-        run: |
-          javac -encoding UTF-8 -d build/test-classes modules/connection-order/src/com/salutem/order/GlobalSearchEngine.java tests/GlobalSearchEngineTest.java
+          New-Item -ItemType Directory -Force build/release-tests | Out-Null
+          javac -encoding UTF-8 -d build/release-tests modules/connection-order/src/com/salutem/order/GlobalSearchEngine.java tests/GlobalSearchEngineTest.java
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          java -cp build/test-classes com.salutem.order.GlobalSearchEngineTest
+          java -cp build/release-tests com.salutem.order.GlobalSearchEngineTest
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Test launcher cache and compatibility on PowerShell 5.1
-        shell: pwsh
-        run: powershell.exe -NoProfile -ExecutionPolicy Bypass -File tests/CheckLauncher.ps1
-      - name: Package installer
-        shell: pwsh
-        run: ./scripts/Build.ps1 -PackageOnly
-      - name: Publish release
+      - name: Criar rascunho de pré-lançamento preservando releases existentes
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          $version = (Get-Content versions.json -Raw | ConvertFrom-Json).packageVersion
-          $assets = @(Get-ChildItem "dist/*-v$version.zip" | ForEach-Object FullName) + @((Resolve-Path dist/SHA256SUMS.txt).Path)
-          if ($assets.Count -ne 5) { throw 'Esperados quatro pacotes e o arquivo de hashes desta versão' }
-          gh release create $env:RELEASE_TAG @assets --repo $env:GITHUB_REPOSITORY --target (git rev-parse HEAD) --title "Pacote de Atualizações do JasperStudio" --notes-file "docs/releases/$env:RELEASE_TAG.md"
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          gh release view v2.8.0 --json tagName 2>$null
+          if ($LASTEXITCODE -eq 0) { throw 'A release 2.8.0 já existe; nenhuma substituição automática será feita.' }
+          $commit = git rev-parse HEAD
+          gh release create v2.8.0 --target $commit --draft --prerelease --title '2.8.0 — Pacote Unificado de Personalização do Jaspersoft Studio' --notes-file docs/releases/v2.8.0.md
+          if ($LASTEXITCODE -ne 0) { throw 'Não foi possível criar o rascunho.' }

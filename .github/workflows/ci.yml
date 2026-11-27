@@ -22,28 +22,61 @@ jobs:
           java-version: '17'
       - name: Verify sources, artifacts and translations
         run: node scripts/Verify.mjs
-      - name: Test numeric order
+      - name: Build isolated Gestão reader with pinned SDK checksum
+        shell: pwsh
+        run: ./scripts/Build-GestaoReader.ps1
+      - name: Test locale selection and safe relaunch arguments
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force build/test-classes | Out-Null
-          javac -encoding UTF-8 -d build/test-classes modules/connection-order/src/com/salutem/order/NumericOrder.java tests/NumericOrderTest.java
+          New-Item -ItemType Directory -Force build/locale-tests | Out-Null
+          javac --release 8 -encoding UTF-8 -d build/locale-tests tests/LocaleSelectionTest.java modules/language/src/com/salutem/l10n/LocaleSelection.java ports/studio6/LocaleRestartArguments.java
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          java -cp build/test-classes NumericOrderTest
+          java -cp build/locale-tests LocaleSelectionTest
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Test Gestão DOM collector
-        run: node tests/gestao-export.test.mjs
+          javac --release 8 -encoding UTF-8 -d build/locale-tests tests/GestaoPagePolicyTest.java modules/connection-order/src/com/salutem/order/GestaoPagePolicy.java
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          java -cp build/locale-tests com.salutem.order.GestaoPagePolicyTest
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Test Studio 6.16 legacy source adapters
+        run: node --test tests/studio616-port.test.mjs
+      - name: Test isolated Java 11 update configuration
+        shell: powershell
+        run: ./tests/Test-Secure6160.ps1
+      - name: Test PKCS12 integrity and crypto readiness probe
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force build/crypto-check | Out-Null
+          javac --release 8 -encoding UTF-8 -d build/crypto-check installer/windows/CryptoRuntimeProbe.java
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          java -cp build/crypto-check CryptoRuntimeProbe create-fixture build/crypto-check/synthetic.p12
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          java -cp build/crypto-check CryptoRuntimeProbe read-fixture build/crypto-check/synthetic.p12
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Test theme, order, translation and launcher regressions
+        shell: pwsh
+        run: ./scripts/Test-Regressions.ps1
+      - name: Test Studio 6 resource migration and source adapters
+        shell: pwsh
+        run: ./ports/studio6/Test-PortTooling.ps1
+      - name: Test version-specific package evidence gates
+        shell: pwsh
+        run: ./tests/Test-PortPackaging.ps1
+      - name: Test experimental metadata without certified Studio profiles
+        shell: pwsh
+        run: ./tests/Test-ExperimentalMetadata.ps1
+      - name: Test successful-publication history and concurrent metadata updates
+        shell: pwsh
+        run: ./tests/Test-PublicationHistory.ps1
       - name: Test connection reconciliation and concurrent imports
         shell: pwsh
         run: |
+          New-Item -ItemType Directory -Force build/test-classes | Out-Null
           $version=(Get-Content versions.json -Raw | ConvertFrom-Json).connectionOrder
           $bundle="artifacts/plugins/com.salutem.jasper.connectionorder_$version.jar"
           javac -encoding UTF-8 -cp $bundle -d build/test-classes tests/GestaoReconciliationTest.java
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           java -cp "$bundle;build/test-classes" GestaoReconciliationTest
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Test extension registry cache lifecycle
-        shell: pwsh
-        run: ./tests/Test-RegistryCache.ps1
       - name: Test subreport source resolution
         shell: pwsh
         run: |
@@ -56,3 +89,14 @@ jobs:
       - name: Build installer from verified artifacts
         shell: pwsh
         run: ./scripts/Build.ps1 -PackageOnly
+      - name: Build unified Windows executable
+        shell: pwsh
+        run: ./scripts/Build-Windows.ps1
+      - name: Test executable and synthetic installation plans
+        shell: pwsh
+        run: ./tests/Test-WindowsInstaller.ps1
+      - name: Retain local candidate for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-installer-candidate
+          path: dist/JS-Instalador-local-*/
