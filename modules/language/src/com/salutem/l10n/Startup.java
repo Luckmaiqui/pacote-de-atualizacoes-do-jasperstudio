@@ -33,7 +33,7 @@ public final class Startup implements IStartup {
   if(original!=null && Set.of("Language","Language:","Idioma","Idioma:").contains(original.replace("&","")))return original.endsWith(":")?"Linguagem:":"Linguagem";
   return translate(original);
  }
- public void earlyStartup(){if(!Locale.getDefault().getLanguage().equals("pt"))return;Display d=Display.getDefault();d.asyncExec(()->{
+ public void earlyStartup(){if(!LocaleSelection.portuguese(org.eclipse.core.runtime.Platform.getNL(),Locale.getDefault()))return;Display d=Display.getDefault();d.asyncExec(()->{
   RefreshQueue queue=new RefreshQueue(d,this::visitVisible);
   org.eclipse.swt.widgets.Listener events=e->{if(e.widget instanceof Menu){Menu menu=(Menu)e.widget;d.asyncExec(()->menu(menu));}else if(e.widget instanceof Control)queue.request((Control)e.widget);};
   for(int type:new int[]{org.eclipse.swt.SWT.Show,org.eclipse.swt.SWT.Selection,org.eclipse.swt.SWT.FocusIn,org.eclipse.swt.SWT.Expand})d.addFilter(type,events);

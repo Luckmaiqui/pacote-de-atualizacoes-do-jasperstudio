@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-11-25T18:20:27.3544577Z",
+  "studio": "6.21.5",
+  "httpStatus": 200,
+  "dnsOrProxySettingsChanged": false,
+  "url": "https://gestao.sistemasalutem.com.br/management",
+  "credentialsInspected": false,
+  "before": "DNS denied in restricted preview process",
+  "schema": 1,
+  "after": "DNS resolved and HTTPS returned 200 with network permission",
+  "browserValidation": "passed: client-management page visibly loaded in the Studio WebView; data extraction/application left to the user"
+}

@@ -1,6 +1,6 @@
 (async () => {
  'use strict';
- if(location.origin !== 'https://gestao.sistemasalutem.com.br' || !location.pathname.startsWith('/management')) {alert('Acesse o Gestão e realize o login.');return;}
+ if(location.origin !== 'https://gestao.sistemasalutem.com.br') {alert('Acesse o Gestão e realize o login.');return;}
  if(window.__salutemExportRunning){alert('Uma leitura já está em andamento.');return;}
  const cards=()=>[...document.querySelectorAll('.management-client-card')];
  if(!cards().length){alert('Acesse o Gestão e realize o login na lista de clientes.');return;}

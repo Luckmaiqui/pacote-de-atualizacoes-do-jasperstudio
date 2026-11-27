@@ -1,0 +1,258 @@
+{
+  "schema": 1,
+  "records": [
+    {
+      "feature": "styleExpression",
+      "version": "6.20.5",
+      "javaMajor": 17,
+      "expectedSuccess": false,
+      "passed": true,
+      "result": {
+        "inspection": {
+          "exactVersion": null,
+          "format": "digester-6",
+          "name": "compat_style",
+          "language": "java",
+          "elements": [
+            "band",
+            "detail",
+            "field",
+            "parameter",
+            "reportElement",
+            "style",
+            "styleExpression",
+            "textField",
+            "textFieldExpression"
+          ],
+          "sha256": "b948b037ea2af6fcbcf729681f8b2c1a7687b663da157308baa0b8ca1b1c9b9f",
+          "warning": "Formato e recursos não identificam a versão exata; valide com o motor escolhido."
+        },
+        "java": "17.0.8.1",
+        "engine": "6.20.5",
+        "engineManifestVersion": "6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e",
+        "loadedArtifact": "jasperreports-6.20.5.jar",
+        "manifestVersionMatches": true,
+        "ok": false,
+        "errorType": "net.sf.jasperreports.engine.JRException",
+        "error": "org.xml.sax.SAXParseException; lineNumber: 6; columnNumber: 107; cvc-complex-type.2.4.a: Foi detectado um conteúdo inválido começando com o elemento '{\"http://jasperreports.sourceforge.net/jasperreports\":styleExpression}'. Era esperado um dos '{\"http://jasperreports.sourceforge.net/jasperreports\":property, \"http://jasperreports.sourceforge.net/jasperreports\":propertyExpression, \"http://jasperreports.sourceforge.net/jasperreports\":printWhenExpression}'.",
+        "processCode": 2,
+        "compiler": "native",
+        "profile": "core"
+      }
+    },
+    {
+      "feature": "styleExpression",
+      "version": "6.20.6",
+      "javaMajor": 17,
+      "expectedSuccess": true,
+      "passed": true,
+      "result": {
+        "inspection": {
+          "exactVersion": null,
+          "format": "digester-6",
+          "name": "compat_style",
+          "language": "java",
+          "elements": [
+            "band",
+            "detail",
+            "field",
+            "parameter",
+            "reportElement",
+            "style",
+            "styleExpression",
+            "textField",
+            "textFieldExpression"
+          ],
+          "sha256": "b948b037ea2af6fcbcf729681f8b2c1a7687b663da157308baa0b8ca1b1c9b9f",
+          "warning": "Formato e recursos não identificam a versão exata; valide com o motor escolhido."
+        },
+        "java": "17.0.8.1",
+        "engine": "6.20.6",
+        "engineManifestVersion": "6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231",
+        "loadedArtifact": "jasperreports-6.20.6.jar",
+        "manifestVersionMatches": true,
+        "read": true,
+        "validate": true,
+        "compile": true,
+        "compiledRoundTrip": true,
+        "editRoundTrip": true,
+        "fill": true,
+        "pages": 1,
+        "exportXml": true,
+        "originalPreserved": true,
+        "ok": true,
+        "processCode": 0,
+        "compiler": "native",
+        "profile": "core"
+      }
+    },
+    {
+      "feature": "styleExpression",
+      "version": "6.21.5",
+      "javaMajor": 17,
+      "expectedSuccess": true,
+      "passed": true,
+      "result": {
+        "inspection": {
+          "exactVersion": null,
+          "format": "digester-6",
+          "name": "compat_style",
+          "language": "java",
+          "elements": [
+            "band",
+            "detail",
+            "field",
+            "parameter",
+            "reportElement",
+            "style",
+            "styleExpression",
+            "textField",
+            "textFieldExpression"
+          ],
+          "sha256": "b948b037ea2af6fcbcf729681f8b2c1a7687b663da157308baa0b8ca1b1c9b9f",
+          "warning": "Formato e recursos não identificam a versão exata; valide com o motor escolhido."
+        },
+        "java": "17.0.8.1",
+        "engine": "6.21.5",
+        "engineManifestVersion": "6.21.5-74d586df47b25dbd05bd0957999819196e59934a",
+        "loadedArtifact": "jasperreports-6.21.5.jar",
+        "manifestVersionMatches": true,
+        "read": true,
+        "validate": true,
+        "compile": true,
+        "compiledRoundTrip": true,
+        "editRoundTrip": true,
+        "fill": true,
+        "pages": 1,
+        "exportXml": true,
+        "originalPreserved": true,
+        "ok": true,
+        "processCode": 0,
+        "compiler": "native",
+        "profile": "core"
+      }
+    },
+    {
+      "feature": "dpi",
+      "version": "7.0.8",
+      "javaMajor": 17,
+      "expectedSuccess": false,
+      "passed": true,
+      "result": {
+        "inspection": {
+          "exactVersion": null,
+          "format": "jackson-7",
+          "name": "compat",
+          "language": "java",
+          "elements": [
+            "band",
+            "detail",
+            "element",
+            "expression",
+            "field",
+            "parameter"
+          ],
+          "sha256": "5dd6e3da4f1b5e3dfadf24326a4dc0b57eafb649febe35d5d1f36bab97179627",
+          "warning": "Formato e recursos não identificam a versão exata; valide com o motor escolhido."
+        },
+        "java": "17.0.8.1",
+        "engine": "7.0.8",
+        "engineManifestVersion": "7.0.8-2da2e11c",
+        "loadedArtifact": "jasperreports-7.0.8.jar",
+        "manifestVersionMatches": true,
+        "ok": false,
+        "errorType": "net.sf.jasperreports.jackson.util.JacksonRuntimeException",
+        "error": "com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field \"dpi\" (class net.sf.jasperreports.engine.design.JasperDesign), not marked as ignorable (51 known properties: \"lastPageFooter\", \"columnHeader\", \"query\", \"columnDirection\", \"pageFooter\", \"name\", \"ignorePagination\", \"columnSpacing\", \"orientation\", \"detail\", \"leftMargin\", \"pageHeight\", \"titleNewPage\", \"language\", \"columnCount\", \"printOrder\", \"topMargin\", \"formatFactoryClass\", \"summary\", \"scriptletClass\", \"parameter\", \"rightMargin\", \"background\", \"resourceBundle\", \"style\", \"pageWidth\", \"whenResourceMissingType\", \"bottomMargin\", \"template\", \"uuid\", \"sortField\", \"whenNoDataType\", \"summaryNewPage\", \"noData\", \"propertyExpression\", \"columnWidth\", \"property\", \"title\", \"import\", \"scriptlet\", \"dataset\", \"field\", \"variable\", \"sectionType\", \"filterExpression\", \"group\", \"pageHeader\", \"columnFooter\", \"summaryWithPageHeaderAndFooter\", \"floatColumnFooter\", \"jasperReportsContext\"])  at [Source: (ByteArrayInputStream); line: 2, column: 172] (through reference chain: net.sf.jasperreports.engine.design.JasperDesign[\"dpi\"])",
+        "processCode": 2,
+        "compiler": "native",
+        "profile": "core"
+      }
+    },
+    {
+      "feature": "dpi",
+      "version": "7.1.0",
+      "javaMajor": 17,
+      "expectedSuccess": true,
+      "passed": true,
+      "result": {
+        "inspection": {
+          "exactVersion": null,
+          "format": "jackson-7",
+          "name": "compat",
+          "language": "java",
+          "elements": [
+            "band",
+            "detail",
+            "element",
+            "expression",
+            "field",
+            "parameter"
+          ],
+          "sha256": "5dd6e3da4f1b5e3dfadf24326a4dc0b57eafb649febe35d5d1f36bab97179627",
+          "warning": "Formato e recursos não identificam a versão exata; valide com o motor escolhido."
+        },
+        "java": "17.0.8.1",
+        "engine": "7.1.0",
+        "engineManifestVersion": "7.1.0-bf63d4a2",
+        "loadedArtifact": "jasperreports-7.1.0.jar",
+        "manifestVersionMatches": true,
+        "read": true,
+        "validate": true,
+        "compile": true,
+        "compiledRoundTrip": true,
+        "editRoundTrip": true,
+        "fill": true,
+        "pages": 1,
+        "exportXml": true,
+        "originalPreserved": true,
+        "ok": true,
+        "processCode": 0,
+        "compiler": "native",
+        "profile": "core"
+      }
+    },
+    {
+      "feature": "dpi",
+      "version": "7.1.1",
+      "javaMajor": 17,
+      "expectedSuccess": true,
+      "passed": true,
+      "result": {
+        "inspection": {
+          "exactVersion": null,
+          "format": "jackson-7",
+          "name": "compat",
+          "language": "java",
+          "elements": [
+            "band",
+            "detail",
+            "element",
+            "expression",
+            "field",
+            "parameter"
+          ],
+          "sha256": "5dd6e3da4f1b5e3dfadf24326a4dc0b57eafb649febe35d5d1f36bab97179627",
+          "warning": "Formato e recursos não identificam a versão exata; valide com o motor escolhido."
+        },
+        "java": "17.0.8.1",
+        "engine": "7.1.1",
+        "engineManifestVersion": "7.1.1-e809d955",
+        "loadedArtifact": "jasperreports-7.1.1.jar",
+        "manifestVersionMatches": true,
+        "read": true,
+        "validate": true,
+        "compile": true,
+        "compiledRoundTrip": true,
+        "editRoundTrip": true,
+        "fill": true,
+        "pages": 1,
+        "exportXml": true,
+        "originalPreserved": true,
+        "ok": true,
+        "processCode": 0,
+        "compiler": "native",
+        "profile": "core"
+      }
+    }
+  ]
+}

@@ -1,6 +1,12 @@
+## Candidata 2.8.0 — instalação unificada
+
+Distribuição atual: um ZIP com somente JasperStudio.exe. Instala o conjunto completo por versão exata; não há seleção separada de módulos na nova interface. Os portes parciais continuam identificados para testes. Consulte [o instalador](docs/INSTALADOR-WINDOWS.md) e a matriz de evidências da 2.8.0. As seções de pacotes separados abaixo descrevem distribuições anteriores.
+
 # Pacote de Atualizações do JasperStudio
 
 Complementos independentes para **Jaspersoft Studio Community 6.20.6 no Windows, Java 17+**.
+
+Em desenvolvimento: [portes específicos para Studio 6.6.0–6.21.5](docs/PORTES-STUDIO-6.md), com compilação contra cada plataforma, adaptadores e testes próprios. Esses candidatos permanecem separados dos pacotes publicados; a validação de componentes não autoriza instalar o pacote 6.20.6 em outro Studio.
 
 > Versão 2.8.0: cor personalizada por bloco da interface, no pacote Temas. Consulte as [notas da versão](docs/releases/v2.8.0.md).
 >
@@ -39,6 +45,12 @@ Os complementos são copiados para `dropins/eclipse/plugins`, com validação SH
 **Não compatível diretamente com 6.16**: usa Java 17 e fragmentos vinculados às versões exatas dos módulos. Outras versões, Linux, macOS e Professional não foram validados. Traduções em lote podem exigir revisão editorial.
 
 ## Desenvolvimento
+
+Instalador gráfico Windows em desenvolvimento: [funcionamento e limites](docs/INSTALADOR-WINDOWS.md). `pwsh scripts/Build-Windows.ps1` gera um EXE com os três módulos, sem instalar no computador ou publicar release. `Instalar.bat` e `Abrir JS.bat` abrem a mesma interface. O perfil gráfico é mais restrito: Studio 6.20.6/Java 17.0.8.1 x64, sem extrapolar a matriz dos motores.
+
+Regressões reproduzíveis: `pwsh scripts/Test-Regressions.ps1` e `pwsh tests/Test-WindowsInstaller.ps1` (após build do EXE). A [conferência visual/manual](docs/VALIDACAO-MANUAL.md) permanece separada do CI.
+
+O estudo e a ferramenta de motores isolados estão em [compatibility/README.md](compatibility/README.md). Eles não ampliam automaticamente a compatibilidade dos complementos de interface com outros Studios. Consulte o [diagnóstico de arquitetura](docs/ARQUITETURA-COMPATIBILIDADE.md) e a [matriz de testes dos motores](docs/COMPATIBILIDADE-JASPER-JAVA.md).
 
 Requisitos: PowerShell 7, Node.js 20+, Java 17 e Studio 6.20.6 local para recompilar.
 

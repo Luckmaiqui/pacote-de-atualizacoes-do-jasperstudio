@@ -1,4 +1,18 @@
-﻿# Versão 2.3.2
+# 2.8.0 — Pacote Unificado de Personalização do Jaspersoft Studio (pré-lançamento)
+
+- Distribuição única: ZIP com somente o EXE, seleção de múltiplas instalações e instalação obrigatória do conjunto completo.
+- Detecção por diretórios e registro, seleção manual de pasta, logs e diagnóstico por linha de comando.
+- Portes exatos 6.6.0, 6.16.0, 6.20.6, 6.21.0 e 6.21.5, sem fallback entre versões. Perfis parciais identificados para testes.
+- Corrige a abertura do leitor da 6.16.0: URL Equinox com espaços e diretório plugins não é convertida diretamente em URI de executável.
+- Leitor WebView2 compartilhado para versões sem backend integrado, com ícone do Studio, tema e botão independente da navegação SPA.
+- Pesquisa na revisão do Gestão por código, nome ou endereço, reutilizando a normalização existente.
+- Mantém pesquisa global limitada a seis consultas simultâneas e isolamento dos exploradores.
+- Java 11.0.33+10 privado incluído para a 6.16.0, com verificação de integridade e restauração de INI em falhas.
+- Mantém backup, recuperação de cópias parciais e bloqueio de JARs alterados sem mudança de versão.
+
+Limitações: testes de componentes não comprovam fluxos autenticados reais ou inspeção visual integral. O histórico da descrição de publicação tem pendência anterior conhecida; não é declarado corrigido. A release não deve ser classificada como estável até concluir as validações manuais documentadas.
+
+# Versão 2.3.2
 
 - Inicializa a conexão nativa do servidor escolhido antes de abrir a pesquisa, corrigindo o acesso a getServerInfo quando getWsClient ainda é nulo.
 - A conexão ocorre com progresso e cancelamento, reutiliza o cliente existente e só consulta o servidor escolhido pelo usuário.

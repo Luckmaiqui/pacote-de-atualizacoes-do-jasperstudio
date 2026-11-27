@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "platform": "windows-x64",
+  "unknownVersions": "blocked-until-ported-and-tested",
+  "profiles": [
+    {
+      "studio": "6.6.0.final",
+      "observedJava": "1.8.0_171",
+      "observedSwt": "3.106.3.v20180329-0507",
+      "uiStatus": "ported-candidate",
+      "reason": "Porte específico Java 8 com testes de componentes e relatório sintético executados. A prévia ainda apresenta menus nativos claros e contornos brilhantes; perfil parcial e bloqueado. Nunca reutilizar os JARs de 6.20.6."
+    },
+    {
+      "studio": "6.16.0.final",
+      "observedJava": "11.0.8",
+      "testedSecurityRuntime": "11.0.33+10",
+      "observedSwt": "3.115.0.v20200831-1002",
+      "uiStatus": "ported-candidate",
+      "reason": "Porte com JARs port6160 e SWT 3.115. O Java original 11.0.8 falha ao ler PKCS12 com HmacPBESHA256; a correção separada oferece Java 11.0.33+10 privado, testado com 17 componentes e o JSON real. Não desabilitar certificados. Aprovação dos fluxos remotos pendente; histórico da descrição não corrigido."
+    },
+    {
+      "studio": "6.20.6.final",
+      "observedJava": "17.0.8.1",
+      "observedSwt": "3.124.0.v20230523-1044",
+      "uiStatus": "validated-baseline",
+      "reason": "Referência de regressão dos complementos. O worker de motores tem matriz independente."
+    },
+    {
+      "studio": "6.21.5.final",
+      "observedJava": "17.0.8.1",
+      "observedSwt": "3.126.0.v20240528-0813",
+      "uiStatus": "ported-candidate",
+      "reason": "Porte específico compilado e testado contra a distribuição Windows fornecida. A prévia ainda apresenta menus nativos claros e contornos brilhantes; o perfil permanece parcial e bloqueado até corrigir e validar essas diferenças. Nunca reutilizar os JARs de 6.20.6."
+    },
+    {
+      "studio": "6.21.0.final",
+      "reason": "Instalação Windows identificada. Porte específico e testes em andamento; não certificado.",
+      "observedJava": "17.0.8.1",
+      "observedSwt": "3.124.100.v20230825-1346",
+      "uiStatus": "ported-candidate"
+    }
+  ]
+}

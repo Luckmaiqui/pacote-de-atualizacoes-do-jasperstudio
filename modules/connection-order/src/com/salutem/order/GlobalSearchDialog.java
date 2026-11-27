@@ -71,7 +71,7 @@ final class GlobalSearchDialog extends Dialog {
   stop();int token=generation;hits.clear();table.setItemCount(0);connections.removeAll();completed=failed=0;
   total=selected.size();
   Map<GlobalSearchEngine.Target,TableItem> rows=new HashMap<>();for(var target:selected){TableItem item=new TableItem(connections,SWT.NONE);item.setText(new String[]{target.name(),"Aguardando resposta…"});rows.put(target,item);}
-  cancel.setEnabled(true);status.setText("Consultando "+total+" servidores…");Display display=getShell().getDisplay();
+  cancel.setEnabled(true);status.setText("Consultando "+total+" servidores — até "+GlobalSearchEngine.PARALLELISM+" simultâneos…");Display display=getShell().getDisplay();
   session=GlobalSearchEngine.search(selected,requested,new GlobalServerBackend(),update->display.asyncExec(()->{
    if(getShell()==null || getShell().isDisposed() || token!=generation)return;
    completed++;String message;

@@ -1,0 +1,62 @@
+[
+  {
+    "realInstall": "Não testado nas instalações principais",
+    "java": "JAVA_VERSION=\"17.0.8.1\"",
+    "workbench": "Não testado nesta candidata",
+    "tests": 18,
+    "remoteGestao": "Não testado",
+    "studio": "6.21.5",
+    "evidence": "build/studio-components-c41399a7-df41-4ae5-94d0-46110615b8ff/results.json",
+    "components": "Aprovado",
+    "remoteSearch": "Não testado",
+    "overall": "Aprovado com limitações"
+  },
+  {
+    "realInstall": "Não testado nas instalações principais",
+    "java": "JAVA_VERSION=\"17.0.8.1\"",
+    "workbench": "Não testado nesta candidata",
+    "tests": 16,
+    "remoteGestao": "Não testado",
+    "studio": "6.20.6",
+    "evidence": "build/studio-components-06855929-ad39-456a-9d9c-4cefcfd1f0c2/results.json",
+    "components": "Aprovado",
+    "remoteSearch": "Não testado",
+    "overall": "Aprovado com limitações"
+  },
+  {
+    "realInstall": "Não testado nas instalações principais",
+    "java": "JAVA_VERSION=\"1.8.0_171\"",
+    "workbench": "Não testado nesta candidata",
+    "tests": 18,
+    "remoteGestao": "Não testado",
+    "studio": "6.6.0",
+    "evidence": "build/studio-components-54f43e83-927d-43be-84cd-3342c5b58406/results.json",
+    "components": "Aprovado",
+    "remoteSearch": "Não testado",
+    "overall": "Aprovado com limitações"
+  },
+  {
+    "realInstall": "Não testado nas instalações principais",
+    "java": "JAVA_VERSION=\"11.0.33\"",
+    "workbench": "Não testado nesta candidata",
+    "tests": 18,
+    "remoteGestao": "Não testado",
+    "studio": "6.16.0",
+    "evidence": "build/studio-components-2b72f239-3568-4914-9217-03927c155cfb/results.json",
+    "components": "Aprovado",
+    "remoteSearch": "Não testado",
+    "overall": "Aprovado com limitações"
+  },
+  {
+    "realInstall": "Não testado nas instalações principais",
+    "java": "JAVA_VERSION=\"17.0.8.1\"",
+    "workbench": "Não testado nesta candidata",
+    "tests": 18,
+    "remoteGestao": "Não testado",
+    "studio": "6.21.0",
+    "evidence": "build/studio-components-e3d8d862-b5f2-48b7-a915-03dccd228016/results.json",
+    "components": "Aprovado",
+    "remoteSearch": "Não testado",
+    "overall": "Aprovado com limitações"
+  }
+]

@@ -1,6 +1,6 @@
-﻿#Requires -Version 7.0
+#Requires -Version 7.0
 [CmdletBinding()]
-param([string]$StudioPath,[switch]$PackageOnly)
+param([string]$StudioPath,[switch]$PackageOnly,[switch]$LegacyPackages)
 $ErrorActionPreference='Stop'
 $root=Split-Path -Parent $PSScriptRoot
 $versions=Get-Content -LiteralPath (Join-Path $root 'versions.json') -Raw|ConvertFrom-Json
@@ -111,6 +111,7 @@ if(-not $PackageOnly){
     if($LASTEXITCODE -ne 0){throw 'Artefatos desatualizados. Faça um build completo.'}
 }
 $snapshot=Get-Content -LiteralPath (Join-Path $root 'artifacts/index.json') -Raw|ConvertFrom-Json
+if(!$LegacyPackages){Write-Output 'Artefatos verificados. Distribuição única: scripts/Build-Windows.ps1';return}
 $stage=Join-Path $root ('build/package-'+[guid]::NewGuid())
 $package=Join-Path $stage 'Pacote de Atualizações do JasperStudio'
 New-Item -ItemType Directory -Force -Path $package,(Join-Path $root 'dist')|Out-Null
@@ -126,7 +127,7 @@ foreach($component in @('themes','translation','connection-order')){
     $entries=@($snapshot.files|Where-Object{
         if($component -eq 'themes'){$_.path -match '^artifacts/plugins/com\.salutem\.jasper\.theme\.'}
         elseif($component -eq 'translation'){$_.path -match '^vendor/|^artifacts/plugins/com\.salutem\.(l10n\.|jasper\.language\.)'}
-        else{$_.path -match '^artifacts/plugins/com\.salutem\.jasper\.connectionorder_'}
+        else{$_.path -eq ('artifacts/plugins/com.salutem.jasper.connectionorder_'+$versions.connectionOrder+'.jar')}
     })
     if($entries.Count -eq 0){throw "Pacote vazio: $component"}
     $inventory=@()

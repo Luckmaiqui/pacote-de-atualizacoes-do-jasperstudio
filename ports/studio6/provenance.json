@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "consultedAt": "2026-11-24",
+  "scope": "Studio 6.x only; Library version catalog is independent",
+  "windows6215": {
+    "source": "User-provided js-studiocomm_6.21.5_windows_x86_64.exe",
+    "length": 403540400,
+    "sha256": "1aea43d196eb8aac863397dcb200b29f6acc6b2943da87a73c595033bef5644b",
+    "method": "Portable 7-Zip extraction; installer not executed",
+    "coreBundle": "com.jaspersoft.studio_6.21.5.final.jar",
+    "bundledJava": "Temurin-17.0.8.1+1",
+    "checksumMeaning": "Identifies the supplied input; not an independent publisher checksum verification",
+    "releaseNotes": "https://community.jaspersoft.com/download-jaspersoft/community-edition/jaspersoft-studio_windows_6.x"
+  },
+  "macos6215": {
+    "source": "User-provided js-studiocomm_6.21.5_macosx_x86_64.dmg",
+    "scope": "Initial common Java API exploration; not Windows validation",
+    "supersededForWindowsTestsBy": "windows6215"
+  },
+  "windows660": {
+    "source": "Read-only existing TIBCO Studio 6.6.0 distribution",
+    "observedJava": "1.8.0_171",
+    "observedSwt": "3.106.3.v20180329-0507"
+  },
+  "windows6206": {
+    "source": "Read-only existing Studio 6.20.6 regression baseline",
+    "observedJava": "17.0.8.1",
+    "observedSwt": "3.124.0.v20230523-1044"
+  },
+  "otherStudio6Versions": "No whole-distribution validation inferred from the tested endpoints"
+}

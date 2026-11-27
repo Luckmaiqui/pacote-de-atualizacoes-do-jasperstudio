@@ -1,0 +1,39 @@
+{
+  "testedAt": "2026-11-25T18:46:19.9291018Z",
+  "installedIntoOriginalDistribution": false,
+  "schema": 1,
+  "componentResults": "build/studio-components-357629d9-ff01-4810-b366-996bc7071f41/results.json",
+  "menuResults": "build/native-popup-97271349-7c9a-41d2-9f04-ab4672d4bb17/results.json",
+  "modules": [
+    {
+      "path": "C:\\Users\\LukasPeresCarvalho\\Documents\\Codex\\2026-11-13\\que\\outputs\\jaspersoft-studio-customizations\\build\\studio6-6.6.0-d6185529bb3f43ddb19fdda6181f71f5\\plugins\\com.salutem.jasper.theme.deepblue_2.4.0.port660.jar",
+      "module": "theme",
+      "sha256": "57F43357CF24E1FBEC61C44E2A0552FA97CFAF4152A08648457C5C0611DB349C",
+      "status": "compiled-not-runtime-validated"
+    },
+    {
+      "path": "C:\\Users\\LukasPeresCarvalho\\Documents\\Codex\\2026-11-13\\que\\outputs\\jaspersoft-studio-customizations\\build\\studio6-6.6.0-d6185529bb3f43ddb19fdda6181f71f5\\plugins\\com.salutem.jasper.language.pt_BR_2.2.2.port660.jar",
+      "module": "language",
+      "sha256": "B73FD565885885C4E2FDEEEC6B59D62F856F8021FC60C9276EF8B92C7B63212C",
+      "status": "compiled-not-runtime-validated"
+    },
+    {
+      "path": "C:\\Users\\LukasPeresCarvalho\\Documents\\Codex\\2026-11-13\\que\\outputs\\jaspersoft-studio-customizations\\build\\studio6-6.6.0-d6185529bb3f43ddb19fdda6181f71f5\\plugins\\com.salutem.jasper.connectionorder_1.8.2.port660.jar",
+      "module": "connection-order",
+      "sha256": "41168CCFAC6664822568785A2C4109D8C89308E3477E97000217B1AA403E5F6B",
+      "status": "compiled-not-runtime-validated"
+    }
+  ],
+  "status": "focused-workbench-checks-passed-manual-import-pending",
+  "studio": "6.6.0",
+  "observed": [
+    "Janela and Idioma drop-downs dark and readable",
+    "Português Brasil selected without INI error",
+    "Legacy import guidance opened with external browser, collector and JSON options"
+  ],
+  "pending": [
+    "Real browser export and JSON import by user",
+    "Switch from English and restart",
+    "Intermittent combo-open fixture failure requires manual check"
+  ]
+}

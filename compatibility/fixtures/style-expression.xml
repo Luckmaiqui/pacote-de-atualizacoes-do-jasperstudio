@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="compat_style" pageWidth="300" pageHeight="200" columnWidth="280" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10">
+ <style name="Accent" forecolor="#004488"/>
+ <parameter name="TITLE" class="java.lang.String"/>
+ <field name="value" class="java.lang.String"/>
+ <detail><band height="20"><textField><reportElement x="0" y="0" width="280" height="20"><styleExpression><![CDATA["Accent"]]></styleExpression></reportElement><textFieldExpression><![CDATA[$P{TITLE} + " / " + $F{value}]]></textFieldExpression></textField></band></detail>
+</jasperReport>

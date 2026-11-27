@@ -1,0 +1,34 @@
+{
+  "catalog": "https://api.nuget.org/v3/registration5-semver1/microsoft.web.webview2/1.0.4370.26.json",
+  "consulted": "2026-11-27",
+  "files": [
+    {
+      "sha256": "3E6F3BA31A7CCD32450404F6C1979F2D77589327BD31EC7C37D49E13A1818FAE",
+      "name": "GestaoReader.cs"
+    },
+    {
+      "sha256": "7C9C375D4C0B93BA9ED2EB4723B122569878232FAC7F4B411BE01095D0447834",
+      "name": "GestaoReader.exe"
+    },
+    {
+      "sha256": "0AF8F1B807512AAE39C2AC1AA4D0CAE65CABECB6FD554B8439A5162A0D6ECA55",
+      "name": "LICENSE-WebView2.txt"
+    },
+    {
+      "sha256": "43319ABB99F77A74CC7E05C987E8E3DC9029BFD95BB2BBB9EEF61C4976998313",
+      "name": "Microsoft.Web.WebView2.Core.dll"
+    },
+    {
+      "sha256": "AD7FA76950F997368C17E8CC83CBAA2E75F8F9B4E66AD793CED7DB82CB66CAEC",
+      "name": "Microsoft.Web.WebView2.WinForms.dll"
+    },
+    {
+      "sha256": "37996D81F0F3A13E93549F74F722FCE25D70B00E93E4A470C34B75D7231BFD1D",
+      "name": "WebView2Loader.dll"
+    }
+  ],
+  "sha512Base64": "6y+vmgBDP/1YeSZiQt9JRSj3w5ffdiL/uu/SwIQ3hSgyvqcnRGunhOvwGGG5WOrDp150G6MP8JjRG8AtW5FZ5w==",
+  "url": "https://api.nuget.org/v3-flatcontainer/microsoft.web.webview2/1.0.4370.26/microsoft.web.webview2.1.0.4370.26.nupkg",
+  "sdk": "1.0.4370.26",
+  "sourceSha256": "3E6F3BA31A7CCD32450404F6C1979F2D77589327BD31EC7C37D49E13A1818FAE"
+}

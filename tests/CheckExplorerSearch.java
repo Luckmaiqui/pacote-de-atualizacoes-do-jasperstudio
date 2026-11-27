@@ -44,9 +44,9 @@ public class CheckExplorerSearch {
    TreeViewer repo=viewer(left,root,nodes);repo.setSelection(new StructuredSelection(bank2));AtomicInteger remote=new AtomicInteger();
    ExplorerSearch.attach(repo,true,remote::incrementAndGet);ExplorerSearch.install(d);shell.open();Text field=search(repo);
    if(repo.getTree().getParent()==left || left.getChildren().length!=1)throw new AssertionError("Layout FillLayout quebrado");
-   field.setText("014");waitUI(d,350);TreeItem[] groups=repo.getTree().getItems();
+   field.setText("014");pump(d,()->status(repo).getText().isEmpty());TreeItem[] groups=repo.getTree().getItems();
    if(groups[0].getItemCount()!=1 || groups[1].getItemCount()!=1 || groups[0].getItem(0).getData()!=bank14 || groups[1].getItem(0).getData()!=server14)throw new AssertionError("Código não trouxe banco e servidor");
-   field.setText("sao jose");waitUI(d,350);if(groups[0].getItemCount()!=1 || groups[1].getItemCount()!=1)throw new AssertionError("Acentos");
+   field.setText("sao jose");pump(d,()->status(repo).getText().isEmpty());if(groups[0].getItemCount()!=1 || groups[1].getItemCount()!=1)throw new AssertionError("Acentos");
    field.setText("");if(repo.getStructuredSelection().getFirstElement()!=bank2 || !groups[0].getExpanded())throw new AssertionError("Limpar perdeu seleção/expansão");
    repo.setSelection(StructuredSelection.EMPTY);Event key=new Event();key.keyCode='f';key.stateMask=SWT.MOD1;repo.getTree().notifyListeners(SWT.KeyDown,key);pump(d,()->remote.get()==1);
    repo.setSelection(new StructuredSelection(server2));if(ExplorerSearch.selectedServer(repo)!=server2)throw new AssertionError("Servidor selecionado ignorado");
@@ -63,7 +63,7 @@ public class CheckExplorerSearch {
    if(remote.get()!=1)throw new AssertionError("Ctrl+F sem seleção");
    for(Control c:field.getParent().getChildren())if(c instanceof Button)((Button)c).notifyListeners(SWT.Selection,new Event());
    if(remote.get()!=2)throw new AssertionError("Botão de busca do servidor");
-   field.setText("014");waitUI(d,350);ExplorerSearch.selectServer(repo,server2);
+   field.setText("014");pump(d,()->status(repo).getText().isEmpty());ExplorerSearch.selectServer(repo,server2);
    if(!field.getText().isEmpty() || repo.getStructuredSelection().getFirstElement()!=server2)throw new AssertionError("Filtro impediu escolher outro servidor");
    Object cmp=repo.getTree().getData("salutem.explorerSearch");ExplorerSearch.attach(repo,true,remote::incrementAndGet);if(cmp!=repo.getTree().getData("salutem.explorerSearch"))throw new AssertionError("Instalação duplicada");
    Map<String,IResource> resources=new LinkedHashMap<>();Map<Object,List<Object>> projectNodes=new IdentityHashMap<>();AtomicInteger visits=new AtomicInteger();
@@ -95,7 +95,7 @@ public class CheckExplorerSearch {
    Composite originalParent=projects.getTree().getParent();ExplorerSearch.attachProject(projects,toolbar,()->workspace);
    if(projects.getTree().getParent()!=originalParent)throw new AssertionError("CommonNavigator foi reparentado");
    Text projectField=searchProject(toolbar.getControl());projects.collapseAll();ISelection selectionBefore=projects.getSelection();
-   field.setText("014");waitUI(d,350);
+   field.setText("014");pump(d,()->status(repo).getText().isEmpty());
    projectField.setText("ficha padrao");pump(d,()->status(projects).getText().contains("1 "));
    TreeItem files=projects.getTree().getItem(0).getItem(0);if(files.getItemCount()!=1 || files.getItem(0).getData()!=match)throw new AssertionError("Arquivo e ancestrais");
    if(!field.getText().equals("014") || groups[0].getItemCount()!=1 || groups[1].getItemCount()!=1)throw new AssertionError("Filtro de projeto alterou repositório");

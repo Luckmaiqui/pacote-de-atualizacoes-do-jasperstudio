@@ -13,10 +13,12 @@ final class ConnectionUi {
  void install(Display display){
   org.eclipse.swt.widgets.Listener changed=e->{if(!queued){queued=true;display.timerExec(80,()->{queued=false;scan(display);});}};
   display.addFilter(SWT.Show,changed);display.addFilter(SWT.FocusIn,changed);scan(display);
+  // A quick Finish click must also be covered before JFace invokes its listener.
+  display.addFilter(SWT.Selection,e->{if(e.widget instanceof Button){Object window=((Button)e.widget).getShell().getData();if(window instanceof WizardDialog)PublishingHistoryUi.attach((WizardDialog)window);}});
  }
  void scan(Display display){for(Shell shell:display.getShells())if(shell.isVisible()){
   Object window=shell.getData();
-  if(window instanceof WizardDialog){Object page=((WizardDialog)window).getCurrentPage();if(page!=null){
+  if(window instanceof WizardDialog){PublishingHistoryUi.attach((WizardDialog)window);Object page=((WizardDialog)window).getCurrentPage();if(page!=null){
    String type=page.getClass().getName();
    if(type.equals("com.jaspersoft.studio.server.wizard.pages.ServerProfilePage"))try{pair(AccountStore.Kind.SERVER,(Text)field(page,"tuser"),(Text)field(page,"tpass"));}catch(ReflectiveOperationException ignored){}
    if(type.startsWith("com.jaspersoft.studio.server.publish.wizard.page."))attachPublishing(page);

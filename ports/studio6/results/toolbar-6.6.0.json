@@ -1,0 +1,10 @@
+{
+  "log": "PASS: toolbar text pixels=0 -> 395; selection/text unchanged; unique hook; callback released; 100 parent disposals.\r\n",
+  "testSourceSha256": "62EA9B0CD3C3C7640CA57365CB6C7725EB30AB97399CCB06084E2B67DAA4F7F3",
+  "schema": 1,
+  "scope": "Toolbar text/selection colours, item state and version-specific API; not complete UI approval",
+  "runtimeJavaSha256": "9536298A2899AA032512FA3262B87F35FBD93C2E7161822350C8C0EFE0702F39",
+  "passed": true,
+  "studio": "6.6.0",
+  "themeSha256": "0811BCF0520E459AE1E7359184792DF9A152B88B7255E469711F79D70A830348"
+}

@@ -11,7 +11,8 @@ final class GlobalSearchEngine {
  record Hit(Target target,String label,String uri,String type,Object nativeValue) {}
  record Update(Target target,List<Hit> hits,Throwable error) {}
  interface Backend { List<Hit> search(Target target,String query,BooleanSupplier canceled) throws Exception; }
- private static final ThreadPoolExecutor POOL=new ThreadPoolExecutor(2,2,30,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),r->{Thread t=new Thread(r,"JasperStudio-global-search");t.setDaemon(true);return t;});
+ static final int PARALLELISM=6;
+ private static final ThreadPoolExecutor POOL=new ThreadPoolExecutor(PARALLELISM,PARALLELISM,30,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),r->{Thread t=new Thread(r,"JasperStudio-global-search");t.setDaemon(true);return t;});
  static final class Session {
   final AtomicBoolean canceled=new AtomicBoolean();final List<Future<?>> tasks=new ArrayList<>();
   synchronized void cancel(){canceled.set(true);for(Future<?> f:tasks)f.cancel(true);POOL.purge();}

@@ -19,12 +19,19 @@ public class CheckDisabledRendering {
    for(String field:new String[]{"background","foreground"}){Field pixel=Menu.class.getDeclaredField(field);pixel.setAccessible(true);if(pixel.getInt(popup)!=-1)throw new AssertionError("Popup força cores clássicas");}
    if(item.getEnabled() || !item.getText().equals("Salvar\tCtrl+S"))throw new AssertionError("Comando/atalho alterado");item.notifyListeners(SWT.Selection,new Event());if(calls[0]!=1)throw new AssertionError("Listener perdido");
    com.salutem.l10n.Startup language=new com.salutem.l10n.Startup();
+   try{System.out.println("DIAGNOSTIC: SWT native dark-mode availability="+OS.class.getMethod("IsDarkModeAvailable").invoke(null));}
+   catch(NoSuchMethodException legacy){System.out.println("DIAGNOSTIC: SWT has no native dark-mode availability API; configured bridge state is tested separately.");}
    if(!language.translateField("Language").equals("Linguagem") || !language.translate("Language").equals("Idioma") || !language.translate("Java Bean").equals("Java Bean") || !language.translate("Data Adapters").equals("Banco de Dados") || !language.translate("Format Factory Class").equals("Classe da Fábrica de Formatação") || !language.translate("Overwrite").equals("Escrever") || !language.translate("Overwrite Only Expression").equals("Escrever Apenas Expressão"))throw new AssertionError("Contexto/capitalização da tradução");
    if(!language.translate("ID").equals("ID") || !language.translate("Id").equals("ID") || !language.translate("ID:").equals("ID:") || !language.translate("&ID").equals("&ID"))throw new AssertionError("Identificador ID traduzido indevidamente");
    Text editable=new Text(parent,SWT.NONE);editable.setText("java");Combo combo=new Combo(parent,SWT.NONE);combo.setItems("java","groovy","javascript");combo.select(0);
    Method nativeCombo=theme.getClass().getDeclaredMethod("nativeCombo",Control.class);nativeCombo.setAccessible(true);nativeCombo.invoke(theme,combo);
    if(!combo.getText().equals("java") || combo.getSelectionIndex()!=0 || combo.getItemCount()!=3)throw new AssertionError("Aplicação do tema alterou valores da lista");
    Method translate=language.getClass().getDeclaredMethod("visit",Control.class);translate.setAccessible(true);translate.invoke(language,parent);
+   if("6.21.5".equals(System.getProperty("salutem.test.studio"))){
+    org.eclipse.swt.custom.CLabel nullable=new org.eclipse.swt.custom.CLabel(parent,SWT.NONE){@Override public String getText(){return null;}};
+    translate.invoke(language,nullable);
+    if(nullable.getText()!=null||nullable.getData("salutem.ptBR.error")!=null)throw new AssertionError("Rótulo opcional nulo gerou falha de tradução");
+   }
    if(!editable.getText().equals("java") || !combo.getItem(0).equals("java"))throw new AssertionError("Valor técnico editável traduzido");
    System.out.println("PASS: menus escuros sem pintura clássica; estado e listeners mantidos; rótulos desabilitados por herança em uma passagem; recuperação ao habilitar; linguagem contextual, termos técnicos e capitalização.");
   }finally{shell.dispose();display.dispose();}

@@ -1,0 +1,57 @@
+{
+  "schema": 2,
+  "observedAt": "2026-11-25",
+  "scope": "Isolated workbench observation, synthetic report, Noite theme; not production workflow approval",
+  "installedIntoOriginalDistribution": false,
+  "observations": [
+    {
+      "studio": "6.6.0",
+      "bootstrap": "EclipseStarter with Java 8 preview entry point",
+      "observedWindow": "Report Design - compatibilidade.jrxml",
+      "pending": "Legacy native popup/menu styling and real remote workflows",
+      "privacyChoiceMadeByAutomation": false,
+      "completeWorkbenchVisualValidation": "pending",
+      "basicWorkbenchSmoke": "partial",
+      "artifactSetSha256": "dfff72aa0c771571a0c54be223920ce6a2cde3fae457a914c113b26fb69260b5",
+      "observedChecks": {
+        "menusTranslated": true,
+        "explorerSearchVisible": true,
+        "reportOpened": true,
+        "paletteVisible": true,
+        "originalReportPreserved": true,
+        "themeApplied": true,
+        "nativeToolbarTextReadable": true,
+        "syntheticReportCompiledAndRendered": true
+      },
+      "blockingFindings": [
+        "Native popup menu remains light after restart",
+        "Bright pane borders remain"
+      ],
+      "authenticationAndPrivacyHandledByUser": true
+    },
+    {
+      "studio": "6.21.5",
+      "bootstrap": "Distribution launcher and bundled Java 17",
+      "observedWindow": "Report Design - compatibilidade.jrxml",
+      "pending": "Visual contrast corrections and real workflow validation",
+      "credentialsReadOrEnteredByAutomation": false,
+      "completeWorkbenchVisualValidation": "pending",
+      "basicWorkbenchSmoke": "partial",
+      "artifactSetSha256": "348790ca46d1b96b29deb100f841f47d9bb168212b243be6a546b022e0c01655",
+      "observedChecks": {
+        "menusTranslated": true,
+        "explorerSearchVisible": true,
+        "reportOpened": true,
+        "paletteVisible": true,
+        "originalReportPreserved": true,
+        "themeApplied": true
+      },
+      "blockingFindings": [
+        "Main report editor selector has very low contrast on light blue selection",
+        "Bright pane borders remain"
+      ],
+      "authenticationAndPrivacyHandledByUser": true
+    }
+  ],
+  "intermediateStudioVersions": "Deferred explicitly by Luckas on 2026-11-24"
+}

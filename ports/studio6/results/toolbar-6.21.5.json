@@ -1,0 +1,10 @@
+{
+  "studio": "6.21.5",
+  "testSourceSha256": "799DE814232A8F47BF399ABABF2191357821E3DE4886BB235B568D732DEDB857",
+  "themeSha256": "36863B89411F44C247EC549CE87A299D94A82FBCB105005DAFD8E946C6C20A6F",
+  "scope": "Toolbar text/selection colours, item state and version-specific API; not complete UI approval",
+  "schema": 1,
+  "log": "PASS: selected item pixels, native icon/text and palette; item properties and command state unchanged; native painting restored when inactive.\r\n",
+  "passed": true,
+  "runtimeJavaSha256": "0CE4EFF7F510229F74E920138AD40151E565873442E852C710292446DB666383"
+}

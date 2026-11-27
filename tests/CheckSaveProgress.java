@@ -9,6 +9,7 @@ public class CheckSaveProgress {
   try {
    Object theme=Class.forName("com.salutem.theme.Startup").getConstructor().newInstance();Color bg=new Color(display,37,38,56),fg=new Color(display,230,233,244);
    for(String name:new String[]{"bg","fg","border","accent"}){Field field=theme.getClass().getDeclaredField(name);field.setAccessible(true);field.set(theme,name.equals("fg")?fg:bg);}
+   Field muted=theme.getClass().getDeclaredField("muted");muted.setAccessible(true);muted.set(theme,new Color(display,183,190,209));
    Method configure=theme.getClass().getDeclaredMethod("configureDisabledLabels",Display.class);configure.setAccessible(true);configure.invoke(theme,display);
    Field nativeColor=Display.class.getDeclaredField("disabledLabelForegroundPixel");nativeColor.setAccessible(true);
    if(nativeColor.getInt(display)!=(183|(190<<8)|(209<<16)))throw new AssertionError("Cor nativa do rótulo desabilitado não aplicada");

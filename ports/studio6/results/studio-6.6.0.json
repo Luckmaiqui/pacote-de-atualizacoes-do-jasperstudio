@@ -1,0 +1,817 @@
+{
+  "schema": 1,
+  "studio": "6.6.0",
+  "status": "components-passed-workbench-pending",
+  "testedAt": "2026-11-25T03:10:57.0723075Z",
+  "platform": "windows-x64",
+  "windowsVersionObservedAtRecording": "10.0.26300.0",
+  "osgiContainer": false,
+  "tests": [
+    "CheckAccounts",
+    "CheckNativeSelection",
+    "CheckReview270",
+    "CheckPublishing",
+    "CheckThemeSwitch",
+    "CheckRepositoryOrder",
+    "CheckExplorerSearch",
+    "CheckDisabledRendering",
+    "GlobalSearchEngineTest",
+    "NumericOrderTest",
+    "SubreportPathsTest",
+    "SubreportInputsTest",
+    "RemoteSubreportMatcherTest",
+    "GestaoCatalogTest",
+    "CheckCustomColors",
+    "CheckSaveProgress",
+    "PortResourceBindings"
+  ],
+  "scope": "Componentes reais em instâncias sintéticas; não valida workbench completo",
+  "manualWorkbench": "pending",
+  "installed": false,
+  "runtimeJavaSha256": "9536298a2899aa032512fa3262b87f35fbd93c2e7161822350c8c0efe0702f39",
+  "swt": "org.eclipse.swt.win32.win32.x86_64_3.106.3.v20180329-0507.jar",
+  "swtSha256": "82f39aac679e15ebaa4d6fa1e09551688739292f3d46e0fca2ea59bb73eccad5",
+  "sourceHashes": {
+    "NumericOrderTest.java": "a6a7e59997c2a3ef0162a7f4165f66baeb9337c757326f2053f6d164f605264b",
+    "SubreportPathsTest.java": "4ab30041dfe8b96ee499c97e91efc49c7460fe82f0156b22f1e5be211c21aa47",
+    "GlobalSearchEngineTest.java": "0b16771d22e4f78e1d5ec5e46826c83e9bf9569f00d3a84d3848de67b5573812",
+    "RemoteSubreportMatcherTest.java": "72af16b5042dcba9f8d3c35b52577c68e8eb4cf02593092c80ff3e37b0253d6c",
+    "GestaoCatalogTest.java": "60c740b4ceabfbc8f852408cc51192a2855891b803a1a8040e97b7fdabbbcee2",
+    "LegacyAssertions.java": "bfb88da6158c5e490bea932ca1055640a7783fea87935542f8e10248cafb934e",
+    "ImportRegistryTestLauncher.java": "49225efd2ac408b8373779b9ff34839aa7fe3e42264efcadf6056ac7ab4af0c9",
+    "CheckThemeSwitch.java": "5c3c5cc349795b27abb458293ec842a84cd5b7bccaa81d45d8ddf5bd85605857",
+    "CheckCustomColors.java": "aee6834f85f55dd4849839d26cd2d15eb6e5896473e5c749034512262ab989b3",
+    "CheckReview270.java": "f8fec145a9b25386eddebe0c7ea30267f7a4bb46868de43cc91a669c3d2cba89",
+    "PopupColorsFixture.java": "46cb5e4fb606be115731b48662c95e8d92422033ddb5ea61ed74ca1a13683e56",
+    "SubreportInputsTest.java": "8729c3a42855c9cbb2175d25c3f836185016824cdcd7a7a962a4bdc09a4b9457",
+    "CheckSaveProgress.java": "0f204ff78f43ee433d5e5890231ec1deb7ede70ff67fb46ada58b233c1a7903b",
+    "CheckPublishing.java": "bc13dd427444966fbcb31122176a9d2c641f1979cd1bb750c6513ff3d184ba44",
+    "CheckRepositoryOrder.java": "7979d7ad2f2bbbc2c4b0cf5b1f4944c0627055c0678d1add8f29eab2ef8bd04d",
+    "CheckAccounts.java": "0c9db4ab5208fca7c4d88b9307955c2bd34d20580ededb752397fe082076d4f2",
+    "Review270Fixture.java": "615ccc4437e8e33aeee3b84a689c0e642ca502874012592fc3522aedf4653775",
+    "CheckExplorerSearch.java": "f346245aa3da5167b9f2dafd5e807d1d331ae6e650a0eb37f7dd509c8f558600",
+    "CheckDisabledRendering.java": "209979be42f0fd23f3d02ae1223a62f6dfadcdda926a496cc2ac90554adcfafe",
+    "NativeSuiteApplication.java": "a3aa408bead1c8a6a37735f333c79ee03d7f1ee3c8d312aa09d70a199db345e5",
+    "CheckNativeSelection.java": "1c0e698757a18452d682a82239114ea35a03244b0a2e73cb64915f3aebbc88d5"
+  },
+  "sourceHashesScope": "compiled inputs after fixture adaptation",
+  "testRunnerSha256": "495abd573e055e360bc52ee0fc4dc2a9fc8fbef2c521776a590150dfdbba01a8",
+  "executionModes": {
+    "GestaoCatalogTest": "target-api-classpath",
+    "CheckSaveProgress": "target-api-classpath",
+    "CheckDisabledRendering": "target-api-classpath",
+    "CheckPublishing": "target-api-classpath",
+    "CheckExplorerSearch": "target-api-classpath",
+    "CheckAccounts": "target-api-classpath",
+    "CheckNativeSelection": "target-api-classpath",
+    "RemoteSubreportMatcherTest": "target-api-classpath",
+    "CheckReview270": "target-api-classpath",
+    "SubreportPathsTest": "target-api-classpath",
+    "PortResourceBindings": "real-osgi-container",
+    "CheckThemeSwitch": "target-api-classpath",
+    "NumericOrderTest": "target-api-classpath",
+    "GlobalSearchEngineTest": "target-api-classpath",
+    "CheckCustomColors": "target-api-classpath",
+    "CheckRepositoryOrder": "target-api-classpath",
+    "SubreportInputsTest": "target-api-classpath"
+  },
+  "artifacts": [
+    {
+      "name": "com.salutem.jasper.theme.deepblue_2.4.0.port660.jar",
+      "sha256": "0811BCF0520E459AE1E7359184792DF9A152B88B7255E469711F79D70A830348"
+    },
+    {
+      "name": "com.salutem.jasper.language.pt_BR_2.2.2.port660.jar",
+      "sha256": "3EDFF86C9EB233634D1D1B34DE87A0E2F91BFFC5C4D1072229F5BAC470B7BFA9"
+    },
+    {
+      "name": "com.salutem.jasper.connectionorder_1.8.2.port660.jar",
+      "sha256": "A4040BB9C9216BF92D63CB5133B618AC97096075F43E91DAC06CD84C0905C375"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.babel.editor.pt_BR_2.1.2.port660.jar",
+      "sha256": "A34B305CBCE21C935D0A4F392ECB1D7D5C5BDD7643F6C1A20EA06FDC5935F952"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.book.pt_BR_2.1.2.port660.jar",
+      "sha256": "614043BE4E7202E4806A6E76F3D802FF66EADC70BCF89980E6814AD07E77692D"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.community.pt_BR_2.1.2.port660.jar",
+      "sha256": "AA91DA65A7295DE955F5CD307D3EBB5F985CDA11C632D7A4F3A6721F3B9DFD5D"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.components.customvisualization.pt_BR_2.1.2.port660.jar",
+      "sha256": "4C352867061C824779D9754517FDB655A0AA6F54CDA29F898E57A637B4EC77E2"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.components.pt_BR_2.1.2.port660.jar",
+      "sha256": "3A254364C2DBC7829AC34A30E96270AA09BF48B66FCF77E85C38DF56AD1A8DD0"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.data.mongodb.pt_BR_2.1.2.port660.jar",
+      "sha256": "26085F530A6B2D1D0E8C3BF93CB8509C550C53C1C9ACEBED34B360B4B864E6FB"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.data.pt_BR_2.1.2.port660.jar",
+      "sha256": "6D16FDC648E94252C0D0B9469E56DBD7488CBBE10659D277BBC885E8C36F7077"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.data.sql.ui.pt_BR_2.1.2.port660.jar",
+      "sha256": "E8AC0D5C8B775429D51C56ED787576833934B6C030EA1DD63B68FF581CBA175A"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.doc.pt_BR_2.1.2.port660.jar",
+      "sha256": "20736BBAFADD93ABA1D76D5F8094BFC5A8E046D198A708790F0F63196D180C95"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.editor.jrexpressions.pt_BR_2.1.2.port660.jar",
+      "sha256": "3DB4BC2D10C2E50DE283A44B1F7A55EAB6B7A769CE17231B19702B73E9181302"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.editor.jrexpressions.ui.pt_BR_2.1.2.port660.jar",
+      "sha256": "4D6561788FC9A6C3A96D710683C5CC731E8297EE888C15CA2B3BCD6665B11904"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.html.pt_BR_2.1.2.port660.jar",
+      "sha256": "DC0A7EB0BE0B6218084C4B820D0275BBB93C1A2C5EBCE5786904B582BBA94715"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.properties.pt_BR_2.1.2.port660.jar",
+      "sha256": "BA56F2A69610A7E6D0536FC62457F93E93A11637785E2208A54946CF770B7A11"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.pt_BR_2.1.2.port660.jar",
+      "sha256": "BFDA509F314AD3A88CE6FF27A6FA83A264F957A96CF9DE2E9A403A432727D847"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.rcp.pt_BR_2.1.2.port660.jar",
+      "sha256": "F485F6FDD61DE6FD7EDE1DBDD6D34690627D40067D8514C87578731373E032B3"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.server.pt_BR_2.1.2.port660.jar",
+      "sha256": "E08E4B691ADAF989E60C6359BB63EBA18F3C0D9084A9BB9CFE5E68374FCF703C"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.server.soap.pt_BR_2.1.2.port660.jar",
+      "sha256": "F89F8590D16EC5B5731E99BBCCA15387225959C8C8E5CF5749FDFB602871D653"
+    },
+    {
+      "name": "com.salutem.l10n.com.jaspersoft.studio.widgets.map.pt_BR_2.1.2.port660.jar",
+      "sha256": "34C05FF619B902C6C116F18BFB74F114551E59B50385CEA22910D94B5484E05C"
+    },
+    {
+      "name": "com.salutem.l10n.net.sf.jasperreports.pt_BR_2.1.2.port660.jar",
+      "sha256": "9596BBAB7F8C3D58035CE304D869B896DBD3330C66B7EC6140F5C3D5156B9543"
+    },
+    {
+      "name": "com.salutem.l10n.net.sf.jasperreports.samples.pt_BR_2.1.2.port660.jar",
+      "sha256": "E805ADF4F875525EA7B6AEA3F3369423F135E1E677E53B9D646DF3F94ED96AE0"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ant.core.pt_BR_2.1.2.port660.jar",
+      "sha256": "F65E1B37FFAE068F53F131F9E8FB22D87EE5F7A2368B342CA2BC20E50EE5D9AF"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ant.launching.pt_BR_2.1.2.port660.jar",
+      "sha256": "94B6474BA4E5B7B0CC58B53039105AB55690FD16D3E6B28CBF7933D24A8A3DDC"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ant.ui.pt_BR_2.1.2.port660.jar",
+      "sha256": "DCA63303190211471D6FCD22D0B1FE288853AFD7A3CE05717C2A26FA798DB725"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.compare.core.pt_BR_2.1.2.port660.jar",
+      "sha256": "15D572C0CC156D83765A27AC2A77C3878AF743EB80389093D91BC7DEE494FCB2"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.compare.pt_BR_2.1.2.port660.jar",
+      "sha256": "28EDD0A2ED68682D227577E5507B72C51FEA10C0E45BEB230FF834D9C2483E3B"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.core.commands.pt_BR_2.1.2.port660.jar",
+      "sha256": "C1BFEBC0933AD396B8428A19EF9370375FDCA074859AFE2A1B977D62A91A5C64"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.core.contenttype.pt_BR_2.1.2.port660.jar",
+      "sha256": "C0FD7680E56EEC44B508D87264EBEAE8600C30D8ED6FA079CB5D2BFA5D8D80BC"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.core.databinding.beans.pt_BR_2.1.2.port660.jar",
+      "sha256": "1830C9938DA895E4BCE32D0D68CE7BC0033BCCF2AB4B175B95DE0C9C992A5BF7"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.core.databinding.observable.pt_BR_2.1.2.port660.jar",
+      "sha256": "A0CB6E0DEFC1944C04683E166FE1938E67E8BE879707A9C94D0F63A6182C1F18"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.core.databinding.property.pt_BR_2.1.2.port660.jar",
+      "sha256": "8360019B57E71C3C0336BBEACBC1632B9E9DA5C72476FDEEE39F646B3741568E"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.core.databinding.pt_BR_2.1.2.port660.jar",
+      "sha256": "FA50D4582CA3DD4C332AA8F0CC340E90C0963757EE0A5927CBC53EF28846F20F"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.core.expressions.pt_BR_2.1.2.port660.jar",
+      "sha256": "57A0AD5AF77FD048C07D03C7F815AADBBA573D8C6BE93DFD63C0DBD8D1B8B9FF"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.core.externaltools.pt_BR_2.1.2.port660.jar",
+      "sha256": "C7AF80F452F48736A9B1055EC616834728981F866BF9F033ECFC34342649EF7D"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.core.filebuffers.pt_BR_2.1.2.port660.jar",
+      "sha256": "711A9FE5B34DE58064F8E724FA937EE2BF037D16A314F0EF31A9B8AD33CDE03F"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.core.filesystem.pt_BR_2.1.2.port660.jar",
+      "sha256": "DC042850C9D8D263D6E766509531645F27056E6E7FFAE4A3693CC294621BA0D8"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.core.jobs.pt_BR_2.1.2.port660.jar",
+      "sha256": "7E1C8C875DBDB5A4B2DC627C160682C979B00570CF5DE9130B56194EBE54C1E3"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.core.net.pt_BR_2.1.2.port660.jar",
+      "sha256": "285102A08F56CA34A1EFDD65E0464B33C1428E66B5D8CAC4052BA838FDDFFE30"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.core.resources.pt_BR_2.1.2.port660.jar",
+      "sha256": "2382133B37F52C406791245E1CB9E0A3DEFAA028C93C43945B027AE3D896A2BA"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.core.runtime.pt_BR_2.1.2.port660.jar",
+      "sha256": "B7993F32BA3B300EB56E3F4E7C95D483FD238AA4DD524E04E6F8DBD969F0BDF2"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.core.variables.pt_BR_2.1.2.port660.jar",
+      "sha256": "1C0E97461773B2251A46B8C675B7D1889CFD4CA72D27EB7F5185285527887BEA"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.debug.core.pt_BR_2.1.2.port660.jar",
+      "sha256": "A1ADBC7541070512E4FAEB2B8241FBDBEE9EB57786546FE36D49C3E47E6BE755"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.debug.ui.pt_BR_2.1.2.port660.jar",
+      "sha256": "D98CB97AF1BFB12EE7D54F414D9396C7209984CE9ABDD85DA9DACE60BF3D3E96"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.core.commands.pt_BR_2.1.2.port660.jar",
+      "sha256": "F1F5A3E0BC30B67D6636B780663BFE5183FD9255BF06DA1BBA8F8B26E7065814"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.core.contexts.pt_BR_2.1.2.port660.jar",
+      "sha256": "859B30F1A3C772F46AE78A849CCD817A2B6AA5F5137C1F19B0B9731AC68ADD0E"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.core.di.annotations.pt_BR_2.1.2.port660.jar",
+      "sha256": "000178A389B63A7C0BFBF0587A7F00FC8773671132EA34B21C6A284A8446D2D0"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.core.di.extensions.pt_BR_2.1.2.port660.jar",
+      "sha256": "8918D3D03A697EE04D5A58C0B933E7C99DC3F2FC067E9D3A3F10A3F9591CBA6F"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.core.di.extensions.supplier.pt_BR_2.1.2.port660.jar",
+      "sha256": "F7C4C6E9AD7AA280E06C20256546D8ADC44CD65D4CB91B6F3679C420F34F3D98"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.core.di.pt_BR_2.1.2.port660.jar",
+      "sha256": "A9469A01B2118C21083EDDDCC9EBA5E1740A958BF23E9C2D5F6EC8C01B32E8C1"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.core.services.pt_BR_2.1.2.port660.jar",
+      "sha256": "6495672D23304A8B8A49FB9431E7F7B0D18055C7A2AB2062BC300EE33ED685E3"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.emf.xpath.pt_BR_2.1.2.port660.jar",
+      "sha256": "EDB5A4A5DE2F8DA1B74ADD704E6407162A47B82DD19323EBF7ED36586B838A68"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.ui.bindings.pt_BR_2.1.2.port660.jar",
+      "sha256": "F90F95224E6BE2364E307E11F39B4A1B7EE61018B897099E7B4162F94E762DFB"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.ui.css.core.pt_BR_2.1.2.port660.jar",
+      "sha256": "383C57E60F71A0B5A8D07396F5BF282DB728917E7A5EB164CBDD79B9663EA28F"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.ui.css.swt.pt_BR_2.1.2.port660.jar",
+      "sha256": "37811F82D173AB84FC23A35A71E64380DAA1C2D6FD811D32A314BBB8CFDA207A"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.ui.css.swt.theme.pt_BR_2.1.2.port660.jar",
+      "sha256": "39ADEB81D8A416909F60D436D40EC0B7BCFCA299876E0D39C29EF3DD9437918B"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.ui.di.pt_BR_2.1.2.port660.jar",
+      "sha256": "82307925BB52CADD832396EC325465476B1EAA8CDAB959930624148C16E4DACD"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.ui.dialogs.pt_BR_2.1.2.port660.jar",
+      "sha256": "1E39C23EF66361429D5E1903F810B259C215B99301AE97CCF4024EAF7B63132B"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.ui.model.workbench.pt_BR_2.1.2.port660.jar",
+      "sha256": "7257F835DCB928541A28972DC4070B67EBCDD288DDB1CACA341C9452FB031730"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.ui.services.pt_BR_2.1.2.port660.jar",
+      "sha256": "11C7F9B014BE6C2534CF5FB697948C00F22CDD970E58D12545F0AFEA25B1D7BE"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.ui.widgets.pt_BR_2.1.2.port660.jar",
+      "sha256": "7A446D82E47920758604F88C0F8D7E40368044E730D9403212BC332D66DC7086"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.ui.workbench.addons.swt.pt_BR_2.1.2.port660.jar",
+      "sha256": "EF0358C1D92509FCAFBA3E7CE3804381DAEBE9216F0DD0B631BFAA75B643BF40"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.ui.workbench.pt_BR_2.1.2.port660.jar",
+      "sha256": "4B67F2C8BE2DFFC009455A9A02EAC9B080BE17C8E1D130C30381C230D72F3DF4"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.ui.workbench.renderers.swt.pt_BR_2.1.2.port660.jar",
+      "sha256": "B8BBBBB3CFD1C7C86F1DDA08114A2F08B575D4C6DADD01752DB696151E581A60"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.ui.workbench.swt.pt_BR_2.1.2.port660.jar",
+      "sha256": "2EF622C1AC2987B36F44871F12B889C9964FD58A05FA912EA29E5352D7DDBADB"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.e4.ui.workbench3.pt_BR_2.1.2.port660.jar",
+      "sha256": "9CB6FD78107C566EF64671F0CACFF0C0E3014F704FAA6075026831E7BEAB1BCC"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.frameworkadmin.equinox.pt_BR_2.1.2.port660.jar",
+      "sha256": "2029D23DF190DE076611CCBC1A94ECA08D74A6DD84803DDB27D24A1649919815"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.frameworkadmin.pt_BR_2.1.2.port660.jar",
+      "sha256": "6C1B7CA43F5D9303049328B2A7539AEB270B2D32614F942B2B7EDB78E9BA8700"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.artifact.repository.pt_BR_2.1.2.port660.jar",
+      "sha256": "0CA57696C4647BD2483B29A500FDE8D3E2D73DD2AA77EEFBBC6623BB6D5D8111"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.console.pt_BR_2.1.2.port660.jar",
+      "sha256": "69B86C52D3FA7E97500649EE64B2DBCACF632227A8CFECEEDAF641B3980D41F9"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.core.pt_BR_2.1.2.port660.jar",
+      "sha256": "AD39C676EC6945107CC0920CEC42687B7B249C1838FE2BA9ED3D2F91573D3681"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.director.app.pt_BR_2.1.2.port660.jar",
+      "sha256": "B2A12BC92B7F0FD97228D96764E3710D04807CD5BE5D190ED187E5B2A2F311BB"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.director.pt_BR_2.1.2.port660.jar",
+      "sha256": "4DBDEA09ADADF1B34D8EDC7F886FD32A1ED83490DE9191FD2D24E1BB2323D67D"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.directorywatcher.pt_BR_2.1.2.port660.jar",
+      "sha256": "5B5B5018BE9EB525FFCC521A0EB259407715575D1B30FC6683D9080FC95CB742"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.engine.pt_BR_2.1.2.port660.jar",
+      "sha256": "69751DB13B052A68F48FA11AD4FB1A92B35F9AB05950E087A2F566F6A6494C00"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.extensionlocation.pt_BR_2.1.2.port660.jar",
+      "sha256": "83F6FD212B109386D735605F44D81D751681BAB384117CCDCB5A46265BF89A56"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.garbagecollector.pt_BR_2.1.2.port660.jar",
+      "sha256": "E56DEFC1AA3162AAE4D6213F939802655502E9E478EBABA12AD6DD2AA410DFC4"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.jarprocessor.pt_BR_2.1.2.port660.jar",
+      "sha256": "4CA105B766838091BABC0678DB0D8615F2FC22CB8EA1FC98BB3A93642FDB765E"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.metadata.pt_BR_2.1.2.port660.jar",
+      "sha256": "053BA149E5C0635E975170CF3D2416C12920E1D155E6B04C51D870EEED1CD3ED"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.metadata.repository.pt_BR_2.1.2.port660.jar",
+      "sha256": "2A1DDC17F14D75A3EE297FAC5BE48E533376C2B23CFD79E85809E9E90EF93728"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.operations.pt_BR_2.1.2.port660.jar",
+      "sha256": "70BB7AF744248E2A9CE043924EF1240F2E1763BA86A68DBB87DDB266E900E3FC"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.publisher.eclipse.pt_BR_2.1.2.port660.jar",
+      "sha256": "1D65BD63DD25CCE83210E0453784ACCE20B6BE5D0C0C15089542528E8695C38F"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.publisher.pt_BR_2.1.2.port660.jar",
+      "sha256": "6641939E719C9725CF311882C31CD2B2F182B28E9B17A452DD17FC5504D05C0C"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.reconciler.dropins.pt_BR_2.1.2.port660.jar",
+      "sha256": "BE6F5C0CA292BAF1B62EBEB711E144E0E1D1E7DF2B1D5E2D2DAC4128D7F58407"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.repository.pt_BR_2.1.2.port660.jar",
+      "sha256": "0269005623E801AFB11248547E3688E347C1FF7C3D24888A8EE910EC6B29A2BE"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.repository.tools.pt_BR_2.1.2.port660.jar",
+      "sha256": "9B93ECFEFDC8E16BA3A67DD390E2E835DC451A4A0C29215A81E79770099F9358"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.touchpoint.eclipse.pt_BR_2.1.2.port660.jar",
+      "sha256": "D85149B1D7AD769C3AFF36DC7731DC999467200FB14E78DC4671218040573809"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.touchpoint.natives.pt_BR_2.1.2.port660.jar",
+      "sha256": "63A73082EAAC9311AFB6DA96A139CB18F311501C29A32EC624C5F37D055DCE2A"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.transport.ecf.pt_BR_2.1.2.port660.jar",
+      "sha256": "3941B210942CC7E0BBBCEFBB67FEE8BE49538DE90AE0F120C22DF7621D230AA8"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.ui.importexport.pt_BR_2.1.2.port660.jar",
+      "sha256": "65F8CBA8F094A0D3E93049B0DD930260FAE24A71D09BC8D94E7BB53AE6FBDC8D"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.ui.pt_BR_2.1.2.port660.jar",
+      "sha256": "1E8862285042E238CEAAFFD9EA29F751ED2D75951E309103235F328914064400"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.ui.sdk.pt_BR_2.1.2.port660.jar",
+      "sha256": "3B886160E0C8992BD593CDE10412CCA607CB8963B6E1C461F43DE57C8CF19595"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.ui.sdk.scheduler.pt_BR_2.1.2.port660.jar",
+      "sha256": "9097EFBC9C2397EE57BC739CA2A81BBECBC0A721D9E43AD3BB1A78695B38469C"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.updatechecker.pt_BR_2.1.2.port660.jar",
+      "sha256": "8A41E97F8E534981CDAF97A90E47BA31A35DE22446C3CCE702698AFFABD9C345"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.p2.updatesite.pt_BR_2.1.2.port660.jar",
+      "sha256": "1D08B33259E7244CFCB28BE52E362824F5C08CE9E0F2CD02C97C92B3D22EFDE9"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.simpleconfigurator.manipulator.pt_BR_2.1.2.port660.jar",
+      "sha256": "171C0C55A7954FD640EF20F9AE77C5F86B4867DB660C9107ABD3CE418D94B357"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.equinox.simpleconfigurator.pt_BR_2.1.2.port660.jar",
+      "sha256": "D14CB9956537536A91C36AFCA749C76B4151CA37964D16D82944001900C9D436"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.gef.pt_BR_2.1.2.port660.jar",
+      "sha256": "65DFEE0DA1321EB3F9AD30E8A8E14B97970E6B20091C4E39B0E4E0F5BEC8ADAF"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.help.base.pt_BR_2.1.2.port660.jar",
+      "sha256": "0DB8FF82800967317F894A714C191D927A938C663D86BB2F06BFEDD7D628CF60"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.help.pt_BR_2.1.2.port660.jar",
+      "sha256": "5D8FAB1046B04E5E24F8D980CD928B789EF2E02793C44A0F644647765DDED17B"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.help.ui.pt_BR_2.1.2.port660.jar",
+      "sha256": "FC2051C0DCCF92E561E0D971196D7451D43462CC889437DB3B52014C6A9C609C"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.help.webapp.pt_BR_2.1.2.port660.jar",
+      "sha256": "60D758703F733F7497CE04C2A18FA360316D4617FB00ADCF875857AA471B9A6D"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.jdt.core.manipulation.pt_BR_2.1.2.port660.jar",
+      "sha256": "A916406CF11F85D018568DEF63FB126B598E96A601B0CE75D2AD1DEBE0E44E94"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.jdt.core.pt_BR_2.1.2.port660.jar",
+      "sha256": "B6CEFEBC45BF27BCF061FF943749CDEEDDB51C545B7C0C926898CCEE5A26F171"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.jdt.debug.ui.pt_BR_2.1.2.port660.jar",
+      "sha256": "34C1BD61339E657884D45B2F15FB2598623F301EBC098C5FE514B3FDF8D2B766"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.jdt.junit.core.pt_BR_2.1.2.port660.jar",
+      "sha256": "BA5FB6E3C61FBA2F4CF630174FC231829D3A99568126EF49F5798CA2A7CA5755"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.jdt.junit.pt_BR_2.1.2.port660.jar",
+      "sha256": "05A5AE5F066329FE505F35E2618129F3BDA4745072DADFF3D6E4652DD21F67CC"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.jdt.junit.runtime.pt_BR_2.1.2.port660.jar",
+      "sha256": "3B7E7B7A880219D87851B3E6F4779FCC6D689BCCE92C1805CDE5BDAEEEB8335A"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.jdt.launching.pt_BR_2.1.2.port660.jar",
+      "sha256": "93D16C0DA09262D232F4CE3C6856C5A0F850F4217D13F91D399647207D447C90"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.jdt.ui.pt_BR_2.1.2.port660.jar",
+      "sha256": "EE059D7614EA0B48D621CC50ECA40BA2A0A8AD889C2B1F7D78C1AB4674552D9A"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.jface.databinding.pt_BR_2.1.2.port660.jar",
+      "sha256": "214BA5A372CD5D6E7F0548EA4334C6742764A4995A5F5C9E6B5982EAB5D0CFA8"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.jface.pt_BR_2.1.2.port660.jar",
+      "sha256": "30C9A02A623AA86DDA6EC0BA277A52CAF7DFF4C00E8B0754336213CF15C8612E"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.jface.text.pt_BR_2.1.2.port660.jar",
+      "sha256": "1735C0807BCB651C56909052494D88207903175587FB074AA96807E6AD9F4D32"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ltk.core.refactoring.pt_BR_2.1.2.port660.jar",
+      "sha256": "C88EE44E476E1B74A593A8AD500B3AE55CE02B7E52770D76976AEBC06BDB4A69"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ltk.ui.refactoring.pt_BR_2.1.2.port660.jar",
+      "sha256": "B2CD3440A920A198BE4970039195CAF376DF4408565CA8805044BA9D6F77B5F4"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.pde.core.pt_BR_2.1.2.port660.jar",
+      "sha256": "A7EA5B30D1B981DD914EB376101D66CC67A7E99667347CCEA027D1550109FBD6"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.pde.launching.pt_BR_2.1.2.port660.jar",
+      "sha256": "C17DC1197841AE116EE6B2084BC7EE8EF87252DA2EB19D1D67C7C452C81D38E1"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.pde.ui.pt_BR_2.1.2.port660.jar",
+      "sha256": "AC358AC3F2EA8169A1201AA45427DCE95050F6AAD4D5E7BCF914A30BE4C7E4AE"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.search.pt_BR_2.1.2.port660.jar",
+      "sha256": "15CF5D5C20258B145773C21FD54659B78C481F142CBA358B68747CFC4CD9B593"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.swt.pt_BR_2.1.2.port660.jar",
+      "sha256": "6054E562F71AAB95F17B2935A8DA14D12765E6A2470D763361BD710915044C68"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.team.core.pt_BR_2.1.2.port660.jar",
+      "sha256": "B8856E8306C13475E54F987CB7288F8EE1B234090743A94EC69BA3AB6A97AC1F"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.team.ui.pt_BR_2.1.2.port660.jar",
+      "sha256": "2A090E7D31937EA2137AEC162B0BEB63A85C181AB4D0CA93856156E0391BE585"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.text.pt_BR_2.1.2.port660.jar",
+      "sha256": "7F9AB6D60135787915716A6F5498712D8F9C826BA251EFDDDF541184743AEC25"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ui.browser.pt_BR_2.1.2.port660.jar",
+      "sha256": "071463FE9BDDCA3341AB6FE7A735BAA3B7A23C94ABE6A52FCE61D024F55ABA4E"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ui.cheatsheets.pt_BR_2.1.2.port660.jar",
+      "sha256": "BF24C180FC246AAE1C9AB32A163825BE0D41E9455F2E8B49B021A69F1A224655"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ui.console.pt_BR_2.1.2.port660.jar",
+      "sha256": "BDAFA3D2A0F111D04F4862C54263780FAB1C3CB7BE728240124EF9796AEE33DB"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ui.editors.pt_BR_2.1.2.port660.jar",
+      "sha256": "F7F651E0AFDD65FEF6F0EC842D6F9C4BA86A64C8CB7685987E5A6FF14A7BD9A2"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ui.externaltools.pt_BR_2.1.2.port660.jar",
+      "sha256": "21D5BA7908F31AA567A935CF993A176F5D7C07F3A0E87DC6AC322353B0B35B1D"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ui.forms.pt_BR_2.1.2.port660.jar",
+      "sha256": "58B24762F623DF9074A22E419303E9E4F07798B0E122AAB6F88D81BB56FD6820"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ui.ide.pt_BR_2.1.2.port660.jar",
+      "sha256": "E5FE0EAD8D6F7670707DFCF638773F0A67EF23B0E3ABEA9EA6D852F9E21A1615"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ui.intro.pt_BR_2.1.2.port660.jar",
+      "sha256": "852069364A072C73D67DE6B13E9A09C0C6BEA0175BCF7A64CF04869E00CDA859"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ui.navigator.pt_BR_2.1.2.port660.jar",
+      "sha256": "14776038E3B29DC45DB20B4FAECDE01E18FFD70211F0E81540E707C654A69D72"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ui.navigator.resources.pt_BR_2.1.2.port660.jar",
+      "sha256": "D2E69743774F8D901CFE2F80DA93F0742CC82A9A8554D1D6307315F874FE2697"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ui.net.pt_BR_2.1.2.port660.jar",
+      "sha256": "C265851A54B07DBB1082239B3D8DEE43B756B6ACC98A60B9826EA6D3CE347352"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ui.pt_BR_2.1.2.port660.jar",
+      "sha256": "38A191C87EF48B7F2CC31D1B75CD6DFC5694FDFEE39C620C41236A10FC4CC42B"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ui.views.log.pt_BR_2.1.2.port660.jar",
+      "sha256": "E8172D027C6AB2178315FACC6C436D7ADD8E59BEB70C5834FFA77E9F7F503BED"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ui.views.properties.tabbed.pt_BR_2.1.2.port660.jar",
+      "sha256": "E2D09F373F66A94CFAE22ED0E95420A78C4398797CCB043DD1469931C0C12558"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ui.views.pt_BR_2.1.2.port660.jar",
+      "sha256": "D6A66A118C641BD60E10A7763207549C610275FD289169CC9DE501A0357EA6E4"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ui.workbench.pt_BR_2.1.2.port660.jar",
+      "sha256": "70545583BB5174DB69E4672E100A40E3A6FD7AE7301B4A9B116A717967CE6AB4"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.ui.workbench.texteditor.pt_BR_2.1.2.port660.jar",
+      "sha256": "9AB76DA5D149AF7B190F3633188BDE39B3864E55A6B2F6347280E9D7D608B12F"
+    },
+    {
+      "name": "com.salutem.l10n.org.eclipse.update.configurator.pt_BR_2.1.2.port660.jar",
+      "sha256": "635270085D9D6E3E107C0CA5C31B77D67F62D642DE701E41DF8B9D26D6987F79"
+    }
+  ],
+  "translationCoverage": {
+    "keys": 29155,
+    "englishForReview": 5280,
+    "translated": 23259
+  },
+  "toolchain": {
+    "jna": {
+      "version": "5.14.0",
+      "url": "https://repo.maven.apache.org/maven2/net/java/dev/jna/jna/5.14.0/jna-5.14.0.jar",
+      "sha256": "34ed1e1f27fa896bca50dbc4e99cf3732967cec387a7a0d5e3486c09673fe8c6",
+      "license": "Apache-2.0 OR LGPL-2.1-or-later",
+      "source": "https://github.com/java-native-access/jna/tree/5.14.0"
+    },
+    "downgrader": {
+      "version": "2.0.1",
+      "url": "https://github.com/unimined/JvmDowngrader/releases/download/2.0.1/jvmdowngrader-2.0.1-all.jar",
+      "sha256": "60a5bd57846fb4be1756fb93e6f63b3d9a63c2759a63e763c44553b086326107",
+      "license": "LGPL-2.1-or-later",
+      "source": "https://github.com/unimined/JvmDowngrader/tree/2.0.1",
+      "java8ApiUrl": "https://maven.wagyourtail.xyz/releases/xyz/wagyourtail/jvmdowngrader/jvmdowngrader-java-api/2.0.1/jvmdowngrader-java-api-2.0.1-downgraded-8.jar",
+      "java8ApiSha256": "b483efb8f9065979b06c753096f177582be9402798067c4ce265a6481471a204"
+    }
+  },
+  "nativeLogs": [
+    {
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "name": "CheckAccounts.err.log"
+    },
+    {
+      "sha256": "3404d7f2c6eb7afd21a470679467ea120ab0f851001b0e823eb87e2ea14e7f9f",
+      "name": "CheckAccounts.out.log"
+    },
+    {
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "name": "CheckCustomColors.err.log"
+    },
+    {
+      "sha256": "ee608dff46859325db1d1a811b5d11f0089c1670c12a819e09930859ade59903",
+      "name": "CheckCustomColors.out.log"
+    },
+    {
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "name": "CheckDisabledRendering.err.log"
+    },
+    {
+      "sha256": "49cfb4848c07d05453d3d8da57785cf9241622b458916b42bdb9b4e6307b05d8",
+      "name": "CheckDisabledRendering.out.log"
+    },
+    {
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "name": "CheckExplorerSearch.err.log"
+    },
+    {
+      "sha256": "87c61b55bb9aaed0678ccb08bed18c9d7825681365cce4bba725c0e132dfc384",
+      "name": "CheckExplorerSearch.out.log"
+    },
+    {
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "name": "CheckNativeSelection.err.log"
+    },
+    {
+      "sha256": "bca5fb125e02a52bcd2239d2e3f39fd3a4fc652f811808ea958ffb83ab7853b5",
+      "name": "CheckNativeSelection.out.log"
+    },
+    {
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "name": "CheckPublishing.err.log"
+    },
+    {
+      "sha256": "21a12f5dd4174fe1d35453effd56cde943f7902efcfb40001a5e7db3111611d3",
+      "name": "CheckPublishing.out.log"
+    },
+    {
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "name": "CheckRepositoryOrder.err.log"
+    },
+    {
+      "sha256": "a37a6e771c216aabd28b1625488b5aab7c53918bb2ea52042c21dd9d327236f7",
+      "name": "CheckRepositoryOrder.out.log"
+    },
+    {
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "name": "CheckReview270.err.log"
+    },
+    {
+      "sha256": "f98ad58589293c4815b5b5c10663d5bae88f035686eab9d14424f42d9e6ec4dc",
+      "name": "CheckReview270.out.log"
+    },
+    {
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "name": "CheckSaveProgress.err.log"
+    },
+    {
+      "sha256": "1165862f89473b09ac07c10d8aee5672f4b918a33bbe895eea41a70241628491",
+      "name": "CheckSaveProgress.out.log"
+    },
+    {
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "name": "CheckThemeSwitch.err.log"
+    },
+    {
+      "sha256": "d615982312ecb8bde1e60e58d07b05571084b6d9e0e1527e53bf10515ae91996",
+      "name": "CheckThemeSwitch.out.log"
+    },
+    {
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "name": "GestaoCatalogTest.err.log"
+    },
+    {
+      "sha256": "75f4e7547736461a3a454863befda88a1d959fdf1af797d919f0065e25e5b0e0",
+      "name": "GestaoCatalogTest.out.log"
+    },
+    {
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "name": "GlobalSearchEngineTest.err.log"
+    },
+    {
+      "sha256": "90f11f4614f44672ff28f7da13d3ff6381677482b51d018b6c0bfc280974631d",
+      "name": "GlobalSearchEngineTest.out.log"
+    },
+    {
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "name": "NumericOrderTest.err.log"
+    },
+    {
+      "sha256": "1f316c8c716ae3569f186e6b8a94215eaeca8eb9952b359f1888ec306146c6ee",
+      "name": "NumericOrderTest.out.log"
+    },
+    {
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "name": "PortResourceBindings.err.log"
+    },
+    {
+      "sha256": "bace5e699b9b0a0a907f42233b675ae1a264b87c9097ad616dee36ec174fd26e",
+      "name": "PortResourceBindings.out.log"
+    },
+    {
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "name": "RemoteSubreportMatcherTest.err.log"
+    },
+    {
+      "sha256": "6bcbb832738d1be29b5ff02f54ff6d4366ab58d8b28cee905330b99e2b52704a",
+      "name": "RemoteSubreportMatcherTest.out.log"
+    },
+    {
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "name": "SubreportInputsTest.err.log"
+    },
+    {
+      "sha256": "81d3f5732730937721a57550cdce547579d3dc76cdfd67aec16f384e472ccf4a",
+      "name": "SubreportInputsTest.out.log"
+    },
+    {
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "name": "SubreportPathsTest.err.log"
+    },
+    {
+      "sha256": "f6cfeb6ecb92496d4362abf750c14a4f898ae0e5a20fdec04a03968030a7fa24",
+      "name": "SubreportPathsTest.out.log"
+    },
+    {
+      "sha256": "b42f2099187886def637d6aa840022266e05cb6c987a9394e708e23cd505eb46",
+      "name": "tests-java8.jar.backport.log"
+    },
+    {
+      "sha256": "b42f2099187886def637d6aa840022266e05cb6c987a9394e708e23cd505eb46",
+      "name": "tests-java8.jar.shade.log"
+    }
+  ]
+}

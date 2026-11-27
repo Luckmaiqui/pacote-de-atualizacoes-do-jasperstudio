@@ -1,5 +1,7 @@
 build/
 dist/
+.compatibility/
+.jvmdg/
 *.log
 *.tmp
 .env

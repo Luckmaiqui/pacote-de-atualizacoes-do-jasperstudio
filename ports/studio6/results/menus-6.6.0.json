@@ -1,0 +1,13 @@
+{
+  "runtimeJavaSha256": "9536298A2899AA032512FA3262B87F35FBD93C2E7161822350C8C0EFE0702F39",
+  "passed": true,
+  "scope": "Native bar menu rows in seven palettes; context styles unchanged; separate from complete Studio and remote workflows",
+  "studio": "6.6.0",
+  "adapterSourceSha256": "A5D78E715275720CFDC1FD10F441BBAFD9A3A035214C9074F7877146901AFA1F",
+  "testSourceSha256": "C269606751DCE69FAC8FBB89D4383CB3A55F3101C2320501128BEE4438BF9F01",
+  "timedOut": false,
+  "sourceCandidate": false,
+  "themeSha256": "57F43357CF24E1FBEC61C44E2A0552FA97CFAF4152A08648457C5C0611DB349C",
+  "schema": 1,
+  "log": "Palette: com.salutem.jasper.theme.deepblue\r\nPalette: com.salutem.jasper.theme.graphite\r\nPalette: com.salutem.jasper.theme.forest\r\nPalette: com.salutem.jasper.theme.plum\r\nPalette: com.salutem.jasper.theme.github\r\nPalette: com.salutem.jasper.theme.onyx\r\nPalette: com.salutem.jasper.theme.midnight\r\nPASS: native bar menus in seven palettes and context-item state; dark backgrounds; disabled labels without white shadow; commands, IDs, strings, images and check state preserved; styles restored and callback released.\r\n\n"
+}

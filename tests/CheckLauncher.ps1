@@ -6,6 +6,13 @@ $installer=Join-Path (Split-Path $PSScriptRoot -Parent) 'installer/common/Instal
 $tokens=$null;$errors=$null
 $ast=[Management.Automation.Language.Parser]::ParseFile($installer,[ref]$tokens,[ref]$errors)
 if($errors.Count){throw ($errors|Out-String)}
+# The extracted functions share the installer's default profile variables.
+# Evaluate only their top-level literal defaults, never the installation body.
+foreach($name in @('expectedStudioVersion','expectedJavaMajor')){
+ $defaults=@($ast.EndBlock.Statements|Where-Object{$_ -is [Management.Automation.Language.AssignmentStatementAst] -and $_.Left.VariablePath.UserPath -eq $name})
+ if($defaults.Count -ne 1){throw ('Default profile assignment missing: '+$name)}
+ Invoke-Expression $defaults[0].Extent.Text
+}
 foreach($definition in $ast.FindAll({param($node) $node -is [Management.Automation.Language.FunctionDefinitionAst]},$false)){
  if($definition.Name -in @('Read-Manifest','Get-JavaMajor','Get-Plan','Get-LaunchPlan')){Invoke-Expression $definition.Extent.Text}
 }

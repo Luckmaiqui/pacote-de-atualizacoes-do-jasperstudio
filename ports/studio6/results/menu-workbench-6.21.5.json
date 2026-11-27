@@ -1,0 +1,16 @@
+{
+  "scope": "Focused manual observation of Window menu and Gestão page loading; not full Studio approval",
+  "gestaoPageLoaded": true,
+  "moduleSelection": "Theme patch plus unchanged tested translation/ordering",
+  "observedAt": "2026-11-25T18:23:21.7011445Z",
+  "labelsReadable": true,
+  "originalInstallationModified": false,
+  "studio": "6.21.5",
+  "credentialsEnteredByAgent": false,
+  "themeSha256": "5E99E0CF00635142D65231C1A790DBDC325831499FC3264C569823BD681F047F",
+  "manualImportStillPending": true,
+  "schema": 1,
+  "opaqueLightLabelBoxes": false,
+  "windowMenuDark": true,
+  "status": "awaiting user workflow validation"
+}

@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "consultedAt": "2026-11-24",
+  "checksumMeaning": "SHA-256 observed on downloads from pinned upstream URLs; integrity lock, not a publisher signature",
+  "files": [
+    {"name":"jvmdowngrader-2.0.1-source.zip","url":"https://codeload.github.com/unimined/JvmDowngrader/zip/refs/tags/2.0.1","sha256":"43a11e27dbd76ed7ff11c54a3c9718259f286136501d21adb7e3044cde83362d"},
+    {"name":"jna-5.14.0-sources.jar","url":"https://repo.maven.apache.org/maven2/net/java/dev/jna/jna/5.14.0/jna-5.14.0-sources.jar","sha256":"ebd774c761215676cda059fd68240628ef99f4aafa6d355ae00d184855aef134"},
+    {"name":"jna-5.14.0-LICENSE","url":"https://raw.githubusercontent.com/java-native-access/jna/5.14.0/LICENSE","sha256":"521bb271ac56e0e29a1b1b688b94af17d00d378fc8e63478d8c8b2a7c4a229d0"},
+    {"name":"jna-5.14.0-AL2.0","url":"https://raw.githubusercontent.com/java-native-access/jna/5.14.0/AL2.0","sha256":"0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"},
+    {"name":"GPL-2.0.txt","url":"https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt","sha256":"edaef632cbb643e4e7a221717a6c441a4c1a7c918e6e4d56debc3d8739b233f6"}
+  ]
+}
