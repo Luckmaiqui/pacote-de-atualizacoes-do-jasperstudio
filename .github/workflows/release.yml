@@ -2,12 +2,12 @@ name: Release
 on:
   push:
     branches: [main]
-    paths: ['jasperstudio-update-v2.8.0.zip']
+    paths: ['jasperstudio-update-v2.8.1.zip']
   workflow_dispatch:
 permissions:
   contents: write
 concurrency:
-  group: release-unificada-280
+  group: release-unificada-281
   cancel-in-progress: false
 jobs:
   release:
@@ -29,9 +29,9 @@ jobs:
       - name: Importar atualização verificada sem modificar workflows
         shell: pwsh
         run: |
-          if ((Get-FileHash jasperstudio-update-v2.8.0.zip).Hash -ne 'A793F8ECBAA2B8FE6F6A4E3B624DABEC446D04293BC8A212DD79AB2DB8C2B2AF') { throw 'Arquivo de fontes divergente' }
-          $stage = Join-Path $env:RUNNER_TEMP 'source-update-280'
-          Expand-Archive -LiteralPath jasperstudio-update-v2.8.0.zip -DestinationPath $stage
+          if ((Get-FileHash jasperstudio-update-v2.8.1.zip).Hash -ne '860C45314600C986B6D2A0E917C07A4B899732F216CD64B9FAE7C48C76CDA691') { throw 'Arquivo de fontes divergente' }
+          $stage = Join-Path $env:RUNNER_TEMP 'source-update-281'
+          Expand-Archive -LiteralPath jasperstudio-update-v2.8.1.zip -DestinationPath $stage
           Get-ChildItem -LiteralPath $stage | Where-Object Name -notin @('.git','.github') | ForEach-Object { Copy-Item -LiteralPath $_.FullName -Destination . -Recurse -Force }
           node scripts/Verify.mjs
           if ($LASTEXITCODE -ne 0) { throw 'Integridade de fontes/binários divergente' }
@@ -40,7 +40,7 @@ jobs:
           git add --all -- ':!.github'
           git diff --cached --quiet
           if ($LASTEXITCODE -ne 0) {
-            git commit -m 'feat: consolidar pacote unificado 2.8.0 e portes exatos do Studio'
+            git commit -m 'feat: consolidar pacote unificado 2.8.1 e portes exatos do Studio'
             git push origin HEAD:main
             if ($LASTEXITCODE -ne 0) { throw 'Publicação dos fontes recusada' }
           }
@@ -56,13 +56,13 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           java -cp build/release-tests com.salutem.order.GlobalSearchEngineTest
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Criar rascunho de pré-lançamento preservando releases existentes
+      - name: Criar rascunho de lançamento preservando releases existentes
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release view v2.8.0 --json tagName 2>$null
-          if ($LASTEXITCODE -eq 0) { throw 'A release 2.8.0 já existe; nenhuma substituição automática será feita.' }
+          gh release view v2.8.1 --json tagName 2>$null
+          if ($LASTEXITCODE -eq 0) { throw 'A release 2.8.1 já existe; nenhuma substituição automática será feita.' }
           $commit = git rev-parse HEAD
-          gh release create v2.8.0 --target $commit --draft --prerelease --title '2.8.0 — Pacote Unificado de Personalização do Jaspersoft Studio' --notes-file docs/releases/v2.8.0.md
+          gh release create v2.8.1 --target $commit --draft --title '2.8.1 — Pacote Unificado de Personalização do Jaspersoft Studio' --notes-file docs/releases/v2.8.1.md
           if ($LASTEXITCODE -ne 0) { throw 'Não foi possível criar o rascunho.' }
