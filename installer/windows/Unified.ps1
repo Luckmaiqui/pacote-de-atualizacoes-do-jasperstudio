@@ -1,4 +1,4 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 [CmdletBinding()]
 param([Parameter(Mandatory=$true)][string]$RequestFile)
 $ErrorActionPreference='Stop'
@@ -88,7 +88,9 @@ try {
     }
     # The same validation is repeated in the elevated installer before mutation.
     $plan=(Invoke-Installer $installer '-ValidateOnly -PlanJson')|ConvertFrom-Json
+    if($plan.FileNames -isnot [System.Array] -or @($plan.FileNames).Count -eq 0 -or @($plan.FileNames).Count -ne [int]$plan.Plugins -or @($plan.FileNames|Select-Object -Unique).Count -ne [int]$plan.Plugins){throw 'O plano de instalação não forneceu uma lista completa e única de arquivos. Nenhum complemento será instalado ou considerado atualizado.'}
     $requiredInventory=@($inventory|Where-Object {$_.name -in @($plan.FileNames)})
+    if($requiredInventory.Count -ne [int]$plan.Plugins){throw 'O inventário do pacote diverge do plano de instalação. A verificação foi interrompida.'}
     $detail="Studio $($plan.Version); Java $($plan.Java); $($plan.Plugins) complementos conferidos; $($plan.OpcionaisAusentes) fragmentos opcionais não aplicáveis."
     if($experimental){$detail="EXPERIMENTAL — compatibilidade não certificada. Referência: Studio $($reference.studio). Apenas metadados dos nossos complementos foram adaptados; erros de APIs/cores/recursos ainda podem ocorrer. " + $detail}
     if($request.action -eq 'Install'){

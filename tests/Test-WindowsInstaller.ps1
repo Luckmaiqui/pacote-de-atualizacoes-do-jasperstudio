@@ -7,6 +7,18 @@ if(!$PackageDirectory){$PackageDirectory=(Get-Content -LiteralPath (Join-Path $r
 foreach($line in Get-Content -LiteralPath (Join-Path $PackageDirectory 'SHA256SUMS.txt')){if($line -notmatch '^([a-f0-9]{64})  (.+)$'){throw 'Inventário externo inválido.'};if((Get-FileHash -LiteralPath (Join-Path $PackageDirectory $matches[2]) -Algorithm SHA256).Hash.ToLowerInvariant() -ne $matches[1]){throw 'Integridade do pacote externo inválida.'}}
 $pe=[IO.File]::ReadAllBytes((Join-Path $PackageDirectory 'JasperStudio.exe'));$header=[BitConverter]::ToInt32($pe,0x3c)
 if([BitConverter]::ToUInt16($pe,$header+4) -ne 0x8664){throw 'O executável deve ser Windows x64.'}
+Add-Type -AssemblyName System.Drawing
+$exePath=Join-Path $PackageDirectory 'JasperStudio.exe'
+$branding=Get-Content -LiteralPath (Join-Path $root 'installer/windows/assets/provenance.json') -Raw|ConvertFrom-Json
+$assembly=[Reflection.Assembly]::LoadFile([IO.Path]::GetFullPath($exePath))
+$brandStream=$assembly.GetManifestResourceStream('JasperIcon')
+if(!$brandStream){throw 'Ícone da janela não incorporado.'}
+$brandHash=[Security.Cryptography.SHA256]::Create()
+try{$actual=([BitConverter]::ToString($brandHash.ComputeHash($brandStream))).Replace('-','');if($actual -ne $branding.iconSha256){throw 'Ícone diferente da identidade original do Jasper.'}}finally{$brandHash.Dispose();$brandStream.Dispose()}
+$shellIcon=[Drawing.Icon]::ExtractAssociatedIcon([IO.Path]::GetFullPath($exePath))
+if(!$shellIcon){throw 'Ícone do executável não disponível para o Explorer.'}
+$shellIcon.Dispose()
+Write-Output 'PASS: ícone original incorporado e ícone do executável disponível para Explorer e barra de tarefas'
 $testRoot=Join-Path ([IO.Path]::GetTempPath()) ('jsi-'+[guid]::NewGuid().ToString('N').Substring(0,8))
 New-Item -ItemType Directory -Path $testRoot|Out-Null
 $payload=Join-Path $testRoot 'Pacote Ação'
@@ -42,11 +54,21 @@ function Inspect([string[]]$Components,[bool]$Expected,[string]$Case){
     $code=$LASTEXITCODE
     $response=Get-Content -LiteralPath (Join-Path $state 'result.json') -Raw|ConvertFrom-Json
     if($response.ok -ne $Expected -or (($code -eq 0) -ne $Expected)){throw ($Case+': '+$response.message)}
+    if($Expected -and $studio -eq $syntheticStudio -and $response.installed -ne $false){throw 'Instalação vazia foi considerada atualizada. Conferir serialização FileNames no Windows PowerShell 5.1.'}
     if($studio -eq $syntheticStudio -and (Test-Path -LiteralPath (Join-Path $studio 'dropins'))){throw 'Inspeção alterou o Studio sintético.'}
     Write-Output ('PASS: '+$Case)
 }
 Inspect @('themes') $true 'Pedido legado de tema convertido em pacote completo'
 Inspect @('themes','translation','connection-order') $true 'Plano único dos três módulos; opcionais ausentes tratados'
+$backend=Join-Path $payload 'common/Instalar.ps1'
+$originalBackend=[IO.File]::ReadAllBytes($backend)
+try{
+    $source=[IO.File]::ReadAllText($backend)
+    $token='FileNames=[string[]]@($plan.Files|ForEach-Object {$_.Name})'
+    if(!$source.Contains($token)){throw 'Teste do contrato FileNames precisa acompanhar o backend.'}
+    [IO.File]::WriteAllText($backend,$source.Replace($token,'FileNames=[string[]]@()'),[Text.UTF8Encoding]::new($true))
+    Inspect @('themes') $false 'Plano sem lista de arquivos bloqueado; sem falso positivo de instalação'
+}finally{[IO.File]::WriteAllBytes($backend,$originalBackend)}
 [IO.File]::WriteAllText((Join-Path $studio 'vm/release'),'JAVA_VERSION="21.0.2"')
 Inspect @('themes') $false 'Java sem validação de interface bloqueado'
 [IO.File]::WriteAllText((Join-Path $studio 'vm/release'),"JAVA_VERSION=`"17.0.13`"`r`nOS_ARCH=`"amd64`"")

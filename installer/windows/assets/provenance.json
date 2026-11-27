@@ -1,0 +1,8 @@
+{
+  "entry": "icons/jaspersoftstudio.ico",
+  "iconSha256": "14BF171ACB4CB621A086E4F0E179986C5D27D4390DCDE524A0CDC5EF8B63F013",
+  "extractedAt": "2026-11-27T15:53:34.9905430-03:00",
+  "purpose": "Ícone original do Studio, solicitado pelo usuário; sem alteração da identidade gráfica",
+  "sourceBundleSha256": "BD0CDDD83138820D5BA17817A8E40CDF8A0D65942A06C52DC7199A8804EDC9B6",
+  "sourceBundle": "com.jaspersoft.studio.rcp_6.21.0.final.jar"
+}

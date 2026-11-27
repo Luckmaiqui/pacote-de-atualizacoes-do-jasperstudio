@@ -16,7 +16,8 @@
       "testedSecurityRuntime": "11.0.33+10",
       "observedSwt": "3.115.0.v20200831-1002",
       "uiStatus": "ported-candidate",
-      "reason": "Porte com JARs port6160 e SWT 3.115. O Java original 11.0.8 falha ao ler PKCS12 com HmacPBESHA256; a correção separada oferece Java 11.0.33+10 privado, testado com 17 componentes e o JSON real. Não desabilitar certificados. Aprovação dos fluxos remotos pendente; histórico da descrição não corrigido."
+      "reason": "Porte com JARs port6160 e SWT 3.115. O Java original 11.0.8 falha ao ler PKCS12 com HmacPBESHA256; a correção separada oferece Java 11.0.33+10 privado, testado com 17 componentes e o JSON real. Não desabilitar certificados. Aprovação dos fluxos remotos pendente; histórico da descrição não corrigido.",
+      "userApproved": "2026-11-27: atualização do Gestão e instalador aprovados pelo usuário; remover indicação Em teste da lista"
     },
     {
       "studio": "6.20.6.final",

@@ -1,5 +1,14 @@
 # 2.8.0 — Pacote Unificado de Personalização do Jaspersoft Studio (pré-lançamento)
 
+## 2.8.1
+
+- Novo assistente de instalação: uma versão por vez, verificação seguida de instalação, progresso e opção de abrir ao finalizar.
+- Ícone original do Jasper no executável e na janela do instalador.
+- 6.16.0 aprovada pelo usuário, sem indicação Em teste; atualização para conexões 1.9.5.port6160 com correção da abertura do leitor do Gestão.
+- Contrato JSON do plano corrigido no PowerShell 5.1; plano vazio/incompleto é bloqueado e arquivos antigos não são considerados atualizados.
+- Verificação de ícone, fluxo do assistente, falhas, opção de abertura e integridade do pacote antes da publicação.
+
+
 - Distribuição única: ZIP com somente o EXE, seleção de múltiplas instalações e instalação obrigatória do conjunto completo.
 - Detecção por diretórios e registro, seleção manual de pasta, logs e diagnóstico por linha de comando.
 - Portes exatos 6.6.0, 6.16.0, 6.20.6, 6.21.0 e 6.21.5, sem fallback entre versões. Perfis parciais identificados para testes.

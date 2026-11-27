@@ -1,3 +1,5 @@
+> Atualização 2.8.1: instalador em etapas, uma versão por vez, ícone do Jasper e correção da verificação no PowerShell 5.1. A 6.16.0 foi aprovada pelo usuário e não exibe mais a indicação Em teste. Consulte [as notas da versão](docs/releases/v2.8.1.md).
+
 ## Candidata 2.8.0 — instalação unificada
 
 Distribuição atual: um ZIP com somente JasperStudio.exe. Instala o conjunto completo por versão exata; não há seleção separada de módulos na nova interface. Os portes parciais continuam identificados para testes. Consulte [o instalador](docs/INSTALADOR-WINDOWS.md) e a matriz de evidências da 2.8.0. As seções de pacotes separados abaixo descrevem distribuições anteriores.

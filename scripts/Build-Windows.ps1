@@ -74,7 +74,10 @@ if(!$OutputDirectory){$OutputDirectory=Join-Path $root ('dist/JS-Instalador-loca
 if(Test-Path -LiteralPath $OutputDirectory){throw 'Diretório de saída existente. Escolha um novo para preservar o pacote anterior.'}
 New-Item -ItemType Directory -Path $OutputDirectory|Out-Null
 $exe=Join-Path $OutputDirectory 'JasperStudio.exe'
-& $compiler /nologo /target:winexe /platform:x64 /optimize+ /codepage:65001 ('/out:'+$exe) ('/win32manifest:'+(Join-Path $root 'installer/windows/app.manifest')) /reference:System.Windows.Forms.dll /reference:System.Drawing.dll /reference:System.Web.Extensions.dll /reference:System.IO.Compression.dll /reference:System.IO.Compression.FileSystem.dll ('/resource:'+$archive+',Payload') ('/resource:'+$hashFile+',PayloadHash') (Join-Path $root 'installer/windows/Program.cs')
+$icon=Join-Path $root 'installer/windows/assets/jaspersoftstudio.ico'
+$iconOrigin=Get-Content -LiteralPath (Join-Path $root 'installer/windows/assets/provenance.json') -Raw|ConvertFrom-Json
+if((Get-FileHash -LiteralPath $icon -Algorithm SHA256).Hash -ne $iconOrigin.iconSha256){throw 'O ícone difere do recurso original conferido.'}
+& $compiler /nologo /target:winexe /platform:x64 /optimize+ /codepage:65001 ('/out:'+$exe) ('/win32icon:'+$icon) ('/win32manifest:'+(Join-Path $root 'installer/windows/app.manifest')) /reference:System.Windows.Forms.dll /reference:System.Drawing.dll /reference:System.Web.Extensions.dll /reference:System.IO.Compression.dll /reference:System.IO.Compression.FileSystem.dll ('/resource:'+$icon+',JasperIcon') ('/resource:'+$archive+',Payload') ('/resource:'+$hashFile+',PayloadHash') (Join-Path $root 'installer/windows/Program.cs')
 if($LASTEXITCODE -ne 0){throw 'Falha ao compilar o executável Windows.'}
 Get-ChildItem -LiteralPath $OutputDirectory -File|ForEach-Object{(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()+'  '+$_.Name}|Set-Content -LiteralPath (Join-Path $OutputDirectory 'SHA256SUMS.txt') -Encoding ascii
 [IO.File]::WriteAllText((Join-Path $root 'build/latest-windows-package.txt'),[IO.Path]::GetFullPath($OutputDirectory),$utf8)

@@ -1,4 +1,4 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 [CmdletBinding()]
 param([string]$StudioPath,[switch]$Elevated,[switch]$ValidateOnly,[switch]$Launch,[switch]$Quiet,[switch]$PlanJson,[switch]$ValidatedOnly,[switch]$Experimental,[string]$RegistryUserProfile=[Environment]::GetFolderPath('UserProfile'))
 $ErrorActionPreference='Stop'
@@ -153,7 +153,7 @@ try {
         exit 0
     }
     $plan=Get-Plan $StudioPath
-    if($ValidateOnly){$view=$plan|Select-Object Root,Version,Java,@{n='Plugins';e={$_.Files.Count}},@{n='OpcionaisAusentes';e={$_.Skipped.Count}},@{n='FileNames';e={@($_.Files|ForEach-Object Name)}};if($PlanJson){[Console]::OutputEncoding=New-Object Text.UTF8Encoding($false);$view|ConvertTo-Json -Compress}else{$view};exit 0}
+    if($ValidateOnly){$view=[pscustomobject]@{Root=$plan.Root;Version=$plan.Version;Java=$plan.Java;Plugins=$plan.Files.Count;OpcionaisAusentes=$plan.Skipped.Count;FileNames=[string[]]@($plan.Files|ForEach-Object {$_.Name})};if($PlanJson){[Console]::OutputEncoding=New-Object Text.UTF8Encoding($false);ConvertTo-Json -InputObject $view -Depth 5 -Compress}else{$view};exit 0}
     $principal=New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
     if(-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)){
         $argsList=@('-NoProfile','-ExecutionPolicy','Bypass','-STA','-File',('"'+$PSCommandPath+'"'),'-StudioPath',('"'+$plan.Root+'"'),'-Elevated')
