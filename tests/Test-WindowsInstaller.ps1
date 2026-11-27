@@ -109,3 +109,6 @@ $themeJar=Get-ChildItem -LiteralPath (Join-Path $payload 'modules/themes/pacote/
 [IO.File]::AppendAllText($themeJar.FullName,'corruption-fixture')
 Inspect @('themes') $false 'JAR corrompido bloqueado antes da cópia'
 Write-Output 'PASS: executável x64, extração, formulário e planos sintéticos. Nenhuma instalação/abertura real foi executada.'
+# Negative fixtures intentionally leave the child process exit code at 1.
+# Reaching this point means every expected success/failure was checked.
+$global:LASTEXITCODE=0
